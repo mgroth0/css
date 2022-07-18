@@ -1,0 +1,264 @@
+/*Official note from JavaFX:*/
+/*It is possible to use the JavaFX class name as a type selector, however, such use is not recommended. For example, it is possible to specify styles for a ToggleButton using the syntax "ToggleButton { ... }". Such usage is not recommended because the name used to match the type selector is the actual concrete class name used in the JavaFX program. This class name can change in the case of subclassing. If the application were to subclass the ToggleButton class, these styles would no longer apply.
+*/
+
+/*FINALLY stopped some focused boxes from blocking the border*/
+/*must be above some stuff below that further disables annoying focus changes*/
+.scroll-pane:focused,
+.split-pane:focused,
+.list-view:focused,
+.tree-view:focused,
+.table-view:focused,
+.tree-table-view:focused,
+.html-editor:contains-focus {
+    -fx-background-color: -fx-faint-focus-color, -fx-focus-color, -fx-control-inner-background;
+    -fx-background-insets: 0, 0, 0;
+    -fx-background-radius: 0, 0, 0;
+}
+
+/*TabPane,
+ListView,
+TableView,
+TreeTableView,
+TreeView,
+FlowPane,
+VBox,
+HBox,
+Pane,
+.hbox,
+.vbox,*/
+BrainStormPane
+    /*ControllableBrainStormPane,*/
+    /*NodePane*/
+    /*TextField,
+   .scroll-pane,
+   .scroll-pane .content,*/
+    /*ScrollPane*/
+{
+    /*-fx-background-color: transparent;*/
+    -fx-background-color: #000000;
+    /*-fx-background-color: blue;*/
+    /*-fx-border-color: blue;*/
+}
+
+.scroll-pane > .viewport,
+ScrollPane,
+.scroll-pane .content,
+VBox,
+HBox,
+GridPane,
+FlowPane,
+.scroll-pane,
+NodePane,
+BrainStormPaneControl {
+    -fx-background-color: transparent;
+}
+
+.flowablePresentationMode {
+    -fx-background-color: linear-gradient(from 50% 50% to 95% 95%, #000000, #004b00);
+    /*-fx-background-color: radial-gradient(focus-angle 15deg , focus-distance 70% , center 70% 70% , radius 50% , blue, #000000);*/
+}
+
+.presentationMode {
+    -fx-background-color: linear-gradient(from 50% 50% to 95% 95%, #000000, #00004b);
+    /*-fx-background-color: radial-gradient(focus-angle 15deg , focus-distance 70% , center 70% 70% , radius 50% , blue, #000000);*/
+}
+
+/*otherwise when the BrainStormPane is focused (and not any particular textfield orr button), there's an annoying blue (actually background) around the pane)*/
+.scroll-pane:focused {
+    -fx-background-color: transparent;
+}
+
+.nodeTextField {
+    -fx-background-color: transparent;
+    /*-fx-text-fill: white;*/
+    /*-fx-border-color: yellow;*/
+}
+
+.nodeTextField:focused {
+    -fx-background-color: transparent;
+}
+
+
+MDialog {
+    -fx-background-color: transparent;
+}
+
+
+Tab,
+Button,
+.ResourceButton {
+    -fx-background-color: #000033;
+    /*-fx-text-fill: blue;*/
+    /*-fx-fill: blue;*/
+}
+
+
+/*Tab:hover,
+Button:hover,*/
+.ResourceButton:hover {
+    -fx-background-color: #000066;
+    -fx-text-fill: white;
+}
+
+.ConfirmButton {
+    -fx-background-color: blue;
+}
+
+
+/*even after trying to export default Nodes to darkModena.css, I couldn't find the default way to do this there*/
+Text {
+    -fx-fill: lightgray;
+}
+
+.CANNOT_EDIT_CHILDREN {
+    -fx-text-fill: #7e0000;
+    -fx-fill: #7e0000;
+}
+
+.CAN_EDIT_CHILDREN {
+    -fx-text-fill: #5d2346;
+    -fx-fill: #5d2346;
+}
+
+.EDITABLE_IN_PLACE {
+    -fx-text-fill: #0f005a;
+    -fx-fill: #0f005a;
+}
+
+.MOVABLE {
+    -fx-text-fill: #0795c3;
+    -fx-fill: #0795c3;
+}
+
+.BoltPaneTextArea {
+    -fx-border-color: transparent;
+    /*<<*/
+}
+
+/*.BrainStormSettingsPane {*/
+/*    -fx-background-color: #000000;*/
+/*}*/
+
+BrainStormPane {
+    /*-fx-background-color: #000000;*/
+    /*-fx-padding: 0, 20, 0, 10; !*top, right, bottom, left*!*/
+}
+
+
+.tag {
+    -fx-text-fill: #0746c3;
+    -fx-fill: #0746c3; /*since I use text now not label, this is the one that matters*/
+}
+
+.tag:hover {
+    -fx-text-fill: #5d89e7;
+    -fx-fill: #5d89e7; /*since I use text now not label, this is the one that matters*/
+}
+
+.datetag {
+    -fx-text-fill: orange;
+    -fx-fill: orange; /*since I use text now not label, this is the one that matters*/
+}
+
+.rDatetag {
+    -fx-text-fill: yellow;
+    -fx-fill: yellow; /*since I use text now not label, this is the one that matters*/
+}
+
+.eDatetag {
+    -fx-text-fill: pink;
+    -fx-fill: pink; /*since I use text now not label, this is the one that matters*/
+}
+
+
+.flowTypeTag {
+    -fx-text-fill: purple;
+    -fx-fill: purple; /*since I use text now not label, this is the one that matters*/
+}
+
+.specialTag {
+    -fx-font-weight: bold;
+}
+
+.redText {
+    -fx-text-fill: red;
+    -fx-fill: red;
+}
+
+.greenText {
+    -fx-text-fill: green;
+    -fx-fill: green;
+}
+
+.yellowText {
+    -fx-text-fill: yellow;
+    -fx-fill: yellow;
+}
+
+.blueText {
+    -fx-text-fill: blue;
+    -fx-fill: blue;
+}
+
+.whiteText {
+    -fx-text-fill: white;
+    -fx-fill: white;
+}
+
+
+.darkGreyText {
+    -fx-text-fill: darkgrey;
+    -fx-fill: darkgrey;
+}
+
+
+.greenBackground {
+    -fx-background-color: green;
+}
+
+.greenBackground:selected {
+    -fx-background-color: green;
+}
+
+.greenBackground:focused {
+    -fx-background-color: green;
+}
+
+/*rtfx*/
+.caret {
+    /* set the blink rate of the area */
+    /*-rtfx-blink-rate: <duration>;*/
+    -fx-stroke: white;
+}
+
+.transparentSelection .selection {
+    -fx-fill: transparent;
+}
+
+.transparentSelection .caret {
+    -fx-stroke: transparent;
+}
+
+/*working selector for richtextfx .text-flow*/
+.paragraph-text {
+}
+
+/*working selector for richtextfx .text*/
+.styled-text-area .text {
+}
+
+.date-picker-popup > * > .spinner > .button > .left-arrow,
+.date-picker-popup > * > .spinner > .button > .right-arrow {
+    -fx-background-color: red,red;
+}
+
+.date-picker-popup > * > .spinner > .button:hover > .left-arrow,
+.date-picker-popup > * > .spinner > .button:hover > .right-arrow {
+    -fx-background-color: green,green;
+}
+
+.date-picker-popup > * > .spinner > .button:pressed > .left-arrow,
+.date-picker-popup > * > .spinner > .button:pressed > .right-arrow {
+    -fx-background-color: yellow,yellow;
+}
