@@ -5,7 +5,7 @@ configure<org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension> {
 		implementations(
 		  libs.kotlinx.html.common,
 		  libs.kotlinx.serialization.json,
-		  ":k:klib".auto(), // this is just an example, feel free to remove
+		  KSubProject.klib.path.auto(), // this is just an example, feel free to remove
 		  handler = this
 		)
 	  }
