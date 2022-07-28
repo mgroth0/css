@@ -1,0 +1,20 @@
+{
+    "modType": "NO_NATIVE",
+    "dependencies": [
+        {
+            "type": "matt.mstruct.BuildJsonLibDependency",
+            "cfg": "commonMainImplementation",
+            "key": "kotlinx-html-common"
+        },
+        {
+            "type": "matt.mstruct.BuildJsonLibDependency",
+            "cfg": "commonMainImplementation",
+            "key": "kotlinx-serialization-json"
+        },
+        {
+            "type": "matt.mstruct.BuildJsonProjectDependency",
+            "cfg": "commonMainImplementation",
+            "path": ":k:klib"
+        }
+    ]
+}
