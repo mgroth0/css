@@ -99,7 +99,7 @@ is being used to size a border should also be in pixels.
      * with -fx-control-inner-background.
      */
     -fx-control-inner-background: derive(-fx-base, 80%);
-    /* Version of -fx-control-inner-background for alternative rows */
+    /* matt.klib.release.Version of -fx-control-inner-background for alternative rows */
     -fx-control-inner-background-alt: derive(-fx-control-inner-background, -2%);
 
     /* One of these colors will be chosen based upon a ladder calculation
