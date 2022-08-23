@@ -4,17 +4,17 @@
     },
     "dependencies": [
         {
-            "type": "matt.mstruct.BuildJsonLibDependency",
+            "type": "matt.mstruct.bj.BuildJsonLibDependency",
             "cfg": "commonMainImplementation",
             "key": "kotlinx-html-common"
         },
         {
-            "type": "matt.mstruct.BuildJsonLibDependency",
+            "type": "matt.mstruct.bj.BuildJsonLibDependency",
             "cfg": "commonMainImplementation",
             "key": "kotlinx-serialization-json"
         },
         {
-            "type": "matt.mstruct.BuildJsonProjectDependency",
+            "type": "matt.mstruct.bj.BuildJsonProjectDependency",
             "cfg": "commonMainImplementation",
             "path": ":k:klib"
         }
