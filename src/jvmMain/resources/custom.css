@@ -16,31 +16,6 @@
     -fx-background-radius: 0, 0, 0;
 }
 
-/*TabPane,
-ListView,
-TableView,
-TreeTableView,
-TreeView,
-FlowPane,
-VBox,
-HBox,
-Pane,
-.hbox,
-.vbox,*/
-BrainStormPane
-    /*ControllableBrainStormPane,*/
-    /*NodePane*/
-    /*TextField,
-   .scroll-pane,
-   .scroll-pane .content,*/
-    /*ScrollPane*/
-{
-    /*-fx-background-color: transparent;*/
-    -fx-background-color: #000000;
-    /*-fx-background-color: blue;*/
-    /*-fx-border-color: blue;*/
-}
-
 .scroll-pane > .viewport,
 ScrollPane,
 .scroll-pane .content,
@@ -48,9 +23,7 @@ VBox,
 HBox,
 GridPane,
 FlowPane,
-.scroll-pane,
-NodePane,
-BrainStormPaneControl {
+.scroll-pane {
     -fx-background-color: transparent;
 }
 
@@ -140,10 +113,6 @@ Text {
 /*    -fx-background-color: #000000;*/
 /*}*/
 
-BrainStormPane {
-    /*-fx-background-color: #000000;*/
-    /*-fx-padding: 0, 20, 0, 10; !*top, right, bottom, left*!*/
-}
 
 
 .tag {
