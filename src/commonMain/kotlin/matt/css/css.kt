@@ -6,7 +6,7 @@ import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
-import matt.str.hyphonizedToCamelCase
+import matt.prim.str.hyphonizedToCamelCase
 import matt.lang.inList
 import matt.prim.str.lower
 import matt.prim.str.toIntOrNullIfBlank
