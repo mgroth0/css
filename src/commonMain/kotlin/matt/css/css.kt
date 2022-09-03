@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
 import matt.klib.hyphonizedToCamelCase
-import matt.klib.lang.inList
+import matt.lang.inList
 import matt.klib.str.lower
 import matt.klib.str.toIntOrNullIfBlank
 import kotlin.js.JsName
