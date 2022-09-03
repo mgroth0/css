@@ -2604,7 +2604,7 @@ is being used to size a border should also be in pixels.
     -fx-background-insets: 0, 0 0 1 0;
 }
 
-/* When in constrained resize mode, the right-most visible cell should not have
+/* When in constrained matt.math.image.resize mode, the right-most visible cell should not have
    a right-border, as it is not possible to get this cleanly out of view without
    introducing horizontal scrollbars (see RT-14886). */
 .table-view:constrained-resize > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell:last-visible,
@@ -2613,7 +2613,7 @@ is being used to size a border should also be in pixels.
 }
 
 /***** HEADER **********************************************************************/
-/* The column-resize-line is shown when the user is attempting to resize a column. */
+/* The column-matt.math.image.resize-line is shown when the user is attempting to matt.math.image.resize a column. */
 .table-view .column-resize-line,
 .tree-table-view .column-resize-line {
     -fx-background: -fx-accent;
