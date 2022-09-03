@@ -8,8 +8,8 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
 import matt.klib.hyphonizedToCamelCase
 import matt.lang.inList
-import matt.klib.str.lower
-import matt.klib.str.toIntOrNullIfBlank
+import matt.prim.str.lower
+import matt.prim.str.toIntOrNullIfBlank
 import kotlin.js.JsName
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
