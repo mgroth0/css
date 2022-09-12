@@ -10,12 +10,8 @@
 	  "type" : "matt.mstruct.bj.BuildJsonLibDependency",
 	  "cfg" :  "commonMainImplementation",
 	  "key" :  "kotlinx-serialization-json"
-	},
-	{
-	  "type" : "matt.mstruct.bj.BuildJsonProjectDependency",
-	  "cfg" :  "commonMainImplementation",
-	  "path" : ":k:klib"
 	}
+
   ],
   "note" :         null
 }
