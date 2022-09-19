@@ -2861,7 +2861,7 @@ is being used to size a border should also be in pixels.
  ******************************************************************************/
 
 .axis {
-    AXIS_COLOR: derive(-fx-background, -20%);
+    AXIS_COLOR: derive(-fx-background, +20%);
     -fx-tick-label-font-size: 0.833333em; /* 10px */
     -fx-tick-label-fill: derive(-fx-text-background-color, 30%);
 }
