@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2017, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2021, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -34,13 +34,17 @@
  * THEMING INSTRUCTIONS                                                       *
  *                                                                             *
  *******************************************************************************
+
 TODO: Explain here how theming works:
+
      * -fx-text-base-color for text on top of -fx-base, -fx-color, and -fx-body-color
      * -fx-text-background-color for text on top of -fx-background
      * -fx-text-inner-color for text on top of -fx-control-inner-color
      * -fx-selection-bar-text for text on top of -fx-selection-bar
+
 RESIZING FOR DIFFERENT SCREEN DPI
 -------------------------------
+
 When the screen DPI changes Windows will use a different font size by default.
 The default is 12px and can change to 15px or 18px depending on user
 preference or screen DPI. On Mac the default is 13px and embedded will depend
@@ -49,6 +53,7 @@ these font sizes we base the padding (which controls size of control) on the
 font size. This is done using the CSS measurement unit of a "em" where
 (1em = font size). The default sizes are based on Windows default of 12px, as
 a quick reference here are common px sizes in em units on windows.
+
 Windows 12px -> em units    -> Mac 13px      |
 ----------------------------------------
      1px     -> 0.083333em  -> 1.08px ~ 2px
@@ -63,9 +68,11 @@ Windows 12px -> em units    -> Mac 13px      |
     10px  = 0.833333em
     11px  = 0.916667em
     12px  = 1em
+
 IMPORTANT: Not all sizes are scaled with em units only padding. All borders and
 background insets are still in pixels. Also any padding where it has to match up
 is being used to size a border should also be in pixels.
+
  ******************************************************************************/
 
 /*******************************************************************************
@@ -96,14 +103,13 @@ is being used to size a border should also be in pixels.
     /*-fx-background: derive(-fx-base, 26.4%);*/
     -fx-background: black;
 
-
     /* Used for the inside of text boxes, password boxes, lists, trees, and
      * tables.  See also -fx-text-inner-color, which should be used as the
      * -fx-text-fill value for text painted on top of backgrounds colored
      * with -fx-control-inner-background.
      */
     -fx-control-inner-background: derive(-fx-base, 80%);
-    /* matt.klib.release.Version of -fx-control-inner-background for alternative rows */
+    /* Version of -fx-control-inner-background for alternative rows */
     -fx-control-inner-background-alt: derive(-fx-control-inner-background, -2%);
 
     /* One of these colors will be chosen based upon a ladder calculation
@@ -508,7 +514,7 @@ is being used to size a border should also be in pixels.
 .tree-view:disabled,
 .table-view:disabled,
 .tree-table-view:disabled,
-    /*.matt.prim.str.build.tab-pane:disabled,  / Removed for JDK-8144983 */
+    /*.tab-pane:disabled,  / Removed for JDK-8144983 */
 .titled-pane:disabled > .title,
 .accordion:disabled > .titled-pane > .title,
 .tab-pane > .tab-header-area > .headers-region > .tab:disabled,
@@ -2612,7 +2618,7 @@ is being used to size a border should also be in pixels.
     -fx-background-insets: 0, 0 0 1 0;
 }
 
-/* When in constrained matt.math.image.resize mode, the right-most visible cell should not have
+/* When in constrained resize mode, the right-most visible cell should not have
    a right-border, as it is not possible to get this cleanly out of view without
    introducing horizontal scrollbars (see RT-14886). */
 .table-view:constrained-resize > .virtual-flow > .clipped-container > .sheet > .table-row-cell > .table-cell:last-visible,
@@ -2621,7 +2627,7 @@ is being used to size a border should also be in pixels.
 }
 
 /***** HEADER **********************************************************************/
-/* The column-matt.math.image.resize-line is shown when the user is attempting to matt.math.image.resize a column. */
+/* The column-resize-line is shown when the user is attempting to resize a column. */
 .table-view .column-resize-line,
 .tree-table-view .column-resize-line {
     -fx-background: -fx-accent;
@@ -2812,10 +2818,13 @@ is being used to size a border should also be in pixels.
  *                                                                             *
  ******************************************************************************/
 
+
+/*MATT: Yes I made the tooltip here have a white background and black text, because I want tooltips to have high contrast with the rest of the app which is dark. On default modena, tooltips have very dark backgrounds and white text.*/
+/*MATT: Also, I am removing the transparency here because otherwise I cannot read the text. Also, I can confirm that on a light theme the tooltips are easily readable without any changes, even with the slight transparency. So I can leave it at default in modena.css*/
 .tooltip {
-    -fx-background: rgba(30, 30, 30);
-    -fx-text-fill: white;
-    -fx-background-color: rgba(30, 30, 30, 0.8);
+    -fx-background: rgba(225, 225, 225);
+    -fx-text-fill: black;
+    -fx-background-color: rgba(225, 225, 225);
     -fx-background-radius: 6px;
     -fx-background-insets: 0;
     -fx-padding: 0.667em 0.75em 0.667em 0.75em; /* 10px */
