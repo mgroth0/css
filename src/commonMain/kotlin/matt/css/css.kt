@@ -11,6 +11,7 @@ import matt.lang.inList
 import matt.prim.str.lower
 import matt.prim.str.toIntOrNullIfBlank
 import kotlin.js.JsName
+import kotlin.jvm.JvmInline
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 
@@ -369,7 +370,8 @@ class Px(private val i: Int): Margin, Length, VerticalAlign { //NOSONAR
   operator fun div(other: Px) = Px(i/other.i)
 }
 
-class Percent(private val i: Int): Length, VerticalAlign { //NOSONAR
+@JvmInline
+value class Percent(private val i: Int): Length, VerticalAlign { //NOSONAR
   operator fun unaryMinus() = Percent(-i)
   override fun toString() = "${i}%"
   operator fun plus(other: Int) = Percent(i + other)
