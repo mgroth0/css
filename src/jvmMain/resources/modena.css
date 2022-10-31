@@ -43,7 +43,7 @@ RESIZING FOR DIFFERENT SCREEN DPI
 -------------------------------
 When the screen DPI changes Windows will use a different font size by default.
 The default is 12px and can change to 15px or 18px depending on user
-preference or screen DPI. On Mac the default is 13px and embedded will depend
+preference or screen DPI. matt.lang.function.On Mac the default is 13px and embedded will depend
 on hardware. To make UI controls scale and be the right proportions for each of
 these font sizes we base the padding (which controls size of control) on the
 font size. This is done using the CSS measurement unit of a "em" where

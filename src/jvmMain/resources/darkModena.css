@@ -47,7 +47,7 @@ RESIZING FOR DIFFERENT SCREEN DPI
 
 When the screen DPI changes Windows will use a different font size by default.
 The default is 12px and can change to 15px or 18px depending on user
-preference or screen DPI. On Mac the default is 13px and embedded will depend
+preference or screen DPI. matt.lang.function.On Mac the default is 13px and embedded will depend
 on hardware. To make UI controls scale and be the right proportions for each of
 these font sizes we base the padding (which controls size of control) on the
 font size. This is done using the CSS measurement unit of a "em" where
@@ -2819,7 +2819,7 @@ is being used to size a border should also be in pixels.
  ******************************************************************************/
 
 
-/*MATT: Yes I made the tooltip here have a white background and black text, because I want tooltips to have high contrast with the rest of the app which is dark. On default modena, tooltips have very dark backgrounds and white text.*/
+/*MATT: Yes I made the tooltip here have a white background and black text, because I want tooltips to have high contrast with the rest of the app which is dark. matt.lang.function.On default modena, tooltips have very dark backgrounds and white text.*/
 /*MATT: Also, I am removing the transparency here because otherwise I cannot read the text. Also, I can confirm that on a light theme the tooltips are easily readable without any changes, even with the slight transparency. So I can leave it at default in modena.css*/
 .tooltip {
     -fx-background: rgba(225, 225, 225);
