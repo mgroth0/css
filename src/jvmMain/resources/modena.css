@@ -10,7 +10,7 @@
  *
  * This code is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * FITNESS FOR A PARTICULAR PURPOSE.  matt.lang.anno.See the GNU General Public License
  * version 2 for more details (a copy is included in the LICENSE file that
  * accompanied this code).
  *
@@ -87,14 +87,14 @@ is being used to size a border should also be in pixels.
      */
     -fx-base: #ececec;
 
-    /* A very light grey used for the background of windows.  See also
+    /* A very light grey used for the background of windows.  matt.lang.anno.See also
      * -fx-text-background-color, which should be used as the -fx-text-fill
      * value for text painted on top of backgrounds colored with -fx-background.
      */
     -fx-background: derive(-fx-base, 26.4%);
 
     /* Used for the inside of text boxes, password boxes, lists, trees, and
-     * tables.  See also -fx-text-inner-color, which should be used as the
+     * tables.  matt.lang.anno.See also -fx-text-inner-color, which should be used as the
      * -fx-text-fill value for text painted on top of backgrounds colored
      * with -fx-control-inner-background.
      */
@@ -105,7 +105,7 @@ is being used to size a border should also be in pixels.
     /* One of these colors will be chosen based upon a ladder calculation
      * that uses the brightness of a background color.  Instead of using these
      * colors directly as -fx-text-fill values, the sections in this file should
-     * use a derived color to match the background in use.  See also:
+     * use a derived color to match the background in use.  matt.lang.anno.See also:
      *
      * -fx-text-base-color for text on top of -fx-base, -fx-color, and -fx-body-color
      * -fx-text-background-color for text on top of -fx-background
