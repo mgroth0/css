@@ -1,5 +1,6 @@
 package matt.css
 
+import matt.model.percent.PercentIdea
 import kotlinx.html.CommonAttributeGroupFacade
 import kotlinx.html.style
 import kotlinx.serialization.InternalSerializationApi
@@ -306,7 +307,7 @@ class Transform {
 	funs.add(Scale(args))
   }
 
-  //  var translate: Pair<Percent, Percent>
+  //  var translate: Pair<matt.model.percent.Percent, matt.model.percent.Percent>
   //	get() = map["translate"]!!.map { it.toString().toPercent() }.let { it[0] to it[1] }
   //	set(value) {
   //	  map["translate"] = value.toList()
@@ -371,7 +372,7 @@ class Px(private val i: Int): Margin, Length, VerticalAlign { //NOSONAR
 }
 
 @JvmInline
-value class Percent(private val i: Int): Length, VerticalAlign { //NOSONAR
+value class Percent(private val i: Int): Length, VerticalAlign, PercentIdea { //NOSONAR
   operator fun unaryMinus() = Percent(-i)
   override fun toString() = "${i}%"
   operator fun plus(other: Int) = Percent(i + other)
