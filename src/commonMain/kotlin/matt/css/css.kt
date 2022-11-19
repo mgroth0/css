@@ -1,6 +1,6 @@
 package matt.css
 
-import matt.model.percent.PercentIdea
+import matt.model.data.percent.PercentIdea
 import kotlinx.html.CommonAttributeGroupFacade
 import kotlinx.html.style
 import kotlinx.serialization.InternalSerializationApi
