@@ -258,6 +258,9 @@ is being used to size a border should also be in pixels.
      */
     -fx-outer-border: derive(-fx-color, -23%);
 
+    /*MATT_WAS_HERE*/
+    -fx-outer-border-lighter: derive(-fx-color, 23%);
+
     /* A gradient that goes from a bit lighter than -fx-color on the top to
      * a little darker at the bottom.  Typically is the third color in the
      * -fx-background-color list as a thin highlight inside the outer border.
@@ -281,6 +284,29 @@ is being used to size a border should also be in pixels.
             derive(-fx-color, -2%) 60%,
             derive(-fx-color, -5%) 100%
     ));
+
+    /*MATT_WAS_HERE*/
+    -fx-inner-border-lighter: linear-gradient(to bottom,
+    ladder(
+            -fx-color,
+            derive(-fx-color, 50%) 0%,
+            derive(-fx-color, 40%) 40%,
+            derive(-fx-color, 45%) 60%,
+            derive(-fx-color, 65%) 80%,
+            derive(-fx-color, 75%) 90%,
+            derive(-fx-color, 95%) 100%
+    ),
+    ladder(
+            -fx-color,
+            derive(-fx-color, 40%) 0%,
+            derive(-fx-color, 30%) 20%,
+            derive(-fx-color, 25%) 40%,
+            derive(-fx-color, 18%) 60%,
+            derive(-fx-color, 15%) 100%
+    ));
+
+
+
     -fx-inner-border-horizontal: linear-gradient(to right, derive(-fx-color, 55%), derive(-fx-color, -5%));
     -fx-inner-border-bottomup: linear-gradient(to top, derive(-fx-color, 55%), derive(-fx-color, -5%));
 
@@ -295,8 +321,21 @@ is being used to size a border should also be in pixels.
             derive(-fx-color, 10%) 80%
     ),
     derive(-fx-color, -8%));
+
+    /*MATT WAS HERE*/
+    -fx-body-color-lighter: linear-gradient(to bottom,
+    ladder(
+            -fx-color,
+            derive(-fx-color, 28%) 75%,
+            derive(-fx-color, 30%) 80%
+    ),
+    derive(-fx-color, 12%));
+
     -fx-body-color-bottomup: linear-gradient(to top, derive(-fx-color, 10%), derive(-fx-color, -6%));
     -fx-body-color-to-right: linear-gradient(to right, derive(-fx-color, 10%), derive(-fx-color, -6%));
+
+    /*MATT WAS HERE*/
+    -fx-body-color-to-right-lighter: linear-gradient(to right, derive(-fx-color, 30%), derive(-fx-color, 14%));
 
     /* The color to use as -fx-text-fill when painting text on top of
      * backgrounds filled with -fx-base, -fx-color, and -fx-body-color.
@@ -1076,7 +1115,13 @@ is being used to size a border should also be in pixels.
 }
 
 .scroll-bar > .thumb {
-    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+
+
+    /*-fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;*/
+    /*MATT WAS HERE*/
+    -fx-background-color: -fx-outer-border-lighter, -fx-inner-border-lighter, -fx-body-color-lighter;
+
+
     /*-fx-background-insets: 1, 2, 3;*/
     -fx-background-insets: 2, 3, 4;
     /*-fx-background-radius: 0.416667em, 0.333333em, 0.25em; *//* 5, 4,3 */
@@ -1084,7 +1129,9 @@ is being used to size a border should also be in pixels.
 }
 
 .scroll-bar:vertical > .thumb {
-    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color-to-right;
+    /*MATT WAS HERE*/
+    /*-fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color-to-right;*/
+    -fx-background-color: -fx-outer-border-lighter, -fx-inner-border-lighter, -fx-body-color-to-right-lighter;
 }
 
 .scroll-bar > .increment-button,
