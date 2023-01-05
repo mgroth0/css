@@ -7,7 +7,7 @@ import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
-import matt.prim.str.hyphonizedToCamelCase
+import matt.prim.str.hyphenatedToCamelCase
 import matt.lang.inList
 import matt.prim.str.lower
 import matt.prim.str.toIntOrNullIfBlank
@@ -92,7 +92,7 @@ abstract class MyStyleDsl {
   @OptIn(InternalSerializationApi::class)
   protected class e<E: Enum<E>, R: MyStyleDsl>(val eCls: KClass<E>) {
 	operator fun getValue(thisRef: R, property: KProperty<*>): E? {
-	  val s = thisRef[property.name.hyphenize()].hyphonizedToCamelCase().takeIf { it.isNotBlank() } ?: return null
+	  val s = thisRef[property.name.hyphenize()].hyphenatedToCamelCase().takeIf { it.isNotBlank() } ?: return null
 	  return Json.decodeFromString(eCls.serializer(), "\"$s\"")
 	}
 
@@ -138,7 +138,7 @@ abstract class CssStyleDSL: MyStyleDsl() {
   })
   var verticalAlign: VerticalAlign?
 	get() = this["vertical-align"].let { v ->
-	  VerticalAligns.values().firstOrNull { it.name == v.hyphonizedToCamelCase() }
+	  VerticalAligns.values().firstOrNull { it.name == v.hyphenatedToCamelCase() }
 		?: if ("px" in v) v.toPxOrNullIfBlank() else v.toPercentOrNullIfBlank()
 	}
 	set(value) {
