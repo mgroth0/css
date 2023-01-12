@@ -1,14 +1,14 @@
 package matt.css
 
-import matt.model.data.percent.PercentIdea
 import kotlinx.html.CommonAttributeGroupFacade
 import kotlinx.html.style
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
-import matt.prim.str.hyphenatedToCamelCase
 import matt.lang.inList
+import matt.model.data.percent.PercentIdea
+import matt.prim.str.hyphenatedToCamelCase
 import matt.prim.str.lower
 import matt.prim.str.toIntOrNullIfBlank
 import kotlin.js.JsName
@@ -158,6 +158,9 @@ abstract class CssStyleDSL: MyStyleDsl() {
 	set(value) {
 	  this["opacity"] = value
 	}
+
+
+  var whiteSpace by e(WhiteSpace::class)
   var display by e(Display::class)
   var flexDirection by e(FlexDirection::class)
   var position by e(Position::class)
@@ -277,8 +280,8 @@ class Transform {
 	fun parseArgs(args: List<String>): A
   }
 
-  class Translate(override val args: Pair<Percent, Percent>): TransformFun<Pair<Percent, Percent>> {
-	override fun parseArgs(args: List<String>): Pair<Percent, Percent> {
+  class Translate(override val args: Pair<Length, Length>): TransformFun<Pair<Length, Length>> {
+	override fun parseArgs(args: List<String>): Pair<Length, Length> {
 	  return args.map { it.toString().toPercent() }.let { it[0] to it[1] }
 	}
 
@@ -299,7 +302,7 @@ class Transform {
 
   //  private val transforms
 
-  fun translate(args: Pair<Percent, Percent>) {
+  fun translate(args: Pair<Length, Length>) {
 	funs.add(Translate(args))
   }
 
@@ -577,6 +580,13 @@ enum class Display {
   contents, none,
 
   inlineBlock, inlineListItem, inlineTable, inlineFlex, inlineGrid;
+
+  override fun toString(): String = name.hyphenize()
+}
+
+@Serializable
+enum class WhiteSpace {
+  preWrap;
 
   override fun toString(): String = name.hyphenize()
 }
