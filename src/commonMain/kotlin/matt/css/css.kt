@@ -7,6 +7,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
 import matt.lang.inList
+import matt.model.code.idea.LinearGradientIdea
 import matt.model.data.percent.PercentIdea
 import matt.prim.str.hyphenatedToCamelCase
 import matt.prim.str.lower
@@ -230,7 +231,7 @@ abstract class CssStyleDSL: MyStyleDsl() {
 }
 
 
-class LinearGradient(@Suppress("UNUSED_PARAMETER") s: String): ColorLike {
+class LinearGradient(@Suppress("UNUSED_PARAMETER") s: String): ColorLike, LinearGradientIdea {
   init {
 	TODO()
   }
