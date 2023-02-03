@@ -2868,6 +2868,7 @@ is being used to size a border should also be in pixels.
 
 /*MATT: Yes I made the tooltip here have a white background and black text, because I want tooltips to have high contrast with the rest of the app which is dark. On default modena, tooltips have very dark backgrounds and white text.*/
 /*MATT: Also, I am removing the transparency here because otherwise I cannot read the text. Also, I can confirm that on a light theme the tooltips are easily readable without any changes, even with the slight transparency. So I can leave it at default in modena.css*/
+
 .tooltip {
     -fx-background: rgba(225, 225, 225);
     -fx-text-fill: black;
