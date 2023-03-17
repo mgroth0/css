@@ -560,7 +560,7 @@ enum class Color: ColorLike {
   black,
 
 
-  white, blue, red, orange, green, aqua, grey, purple, violet, yellow;
+  white, blue, red, orange, green, aqua, grey, purple, violet, yellow, transparent;
 
   override fun toString() = name
 }
