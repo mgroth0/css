@@ -9,7 +9,7 @@ import kotlinx.serialization.serializer
 import matt.lang.inList
 import matt.model.code.idea.LinearGradientIdea
 import matt.model.data.percent.PercentIdea
-import matt.prim.str.hyphenatedToCamelCase
+import matt.prim.str.cases.hyphenatedToCamelCase
 import matt.prim.str.lower
 import matt.prim.str.toIntOrNullIfBlank
 import kotlin.js.JsName
