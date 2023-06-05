@@ -1,21 +1,27 @@
 {
-  "type" :         "MultiPlatformModule", "jvm": {}, "js": "LIB",
-  "dependencies" : [
-	{
-	  "type" : "Lib",
-	  "cfg" :  "commonMainImplementation",
-	  "key" :  "kotlinx-html-common"
-	},
-	{
-	  "type" : "Project",
-	  "cfg" :  "commonMainApi",
-	  "path" : ":k:prim"
-	},
-	{
-	  "type" : "Project",
-	  "cfg" :  "commonMainApi",
-	  "path" : ":k:model"
-	}
-  ],
-  "note" :         null
+  "type": "MultiPlatformModule",
+  "jvm": {},
+  "js": "LIB",
+  "dependencies": [
+    {
+      "type": "Lib",
+      "cfg": "commonMainImplementation",
+      "key": "kotlinx-html-common"
+    },
+    {
+      "type": "Project",
+      "cfg": "commonMainApi",
+      "path": ":k:prim"
+    },
+    {
+      "type": "Project",
+      "cfg": "commonMainApi",
+      "path": ":k:model"
+    },
+    {
+      "type": "Lib",
+      "cfg": "commonMainApi",
+      "key": "kotlin-css"
+    }
+  ]
 }

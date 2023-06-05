@@ -3,17 +3,40 @@ package matt.css
 import kotlinx.html.CommonAttributeGroupFacade
 import kotlinx.html.style
 import kotlinx.serialization.InternalSerializationApi
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
+import matt.css.props.AlignItems
+import matt.css.props.BorderStyle
+import matt.css.props.BorderWidth
+import matt.css.props.BoxSizing
+import matt.css.props.Color
+import matt.css.props.ColorLike
+import matt.css.props.Cursor
+import matt.css.props.Display
+import matt.css.props.FlexDirection
+import matt.css.props.FontStyle
+import matt.css.props.FontWeight
+import matt.css.props.JustifyContent
+import matt.css.props.Overflow
+import matt.css.props.Position
+import matt.css.props.TextAlign
+import matt.css.props.VerticalAlign
+import matt.css.props.VerticalAligns
+import matt.css.props.WhiteSpace
+import matt.css.units.Length
+import matt.css.units.Margin
+import matt.css.units.Px
+import matt.css.units.auto
+import matt.css.units.toPercent
+import matt.css.units.toPercentOrNullIfBlank
+import matt.css.units.toPx
+import matt.css.units.toPxOrNullIfBlank
 import matt.lang.inList
 import matt.model.code.idea.LinearGradientIdea
-import matt.model.data.percent.PercentIdea
 import matt.prim.str.cases.hyphenatedToCamelCase
+import matt.prim.str.cases.hyphenize
 import matt.prim.str.lower
-import matt.prim.str.toIntOrNullIfBlank
 import kotlin.js.JsName
-import kotlin.jvm.JvmInline
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 
@@ -334,283 +357,8 @@ class Transform {
   }
 }
 
-fun String.toPx(): Px {
-  if (isNotBlank()) require("px" in this) { "px is not in $this" }
-  return replace("px", "").toInt().px
-}
 
-fun String.toPercent(): Percent {
-  if (isNotBlank()) require("%" in this) { "% is not in $this" }
-  return replace("%", "").toInt().percent
-}
 
-fun String.toPxOrNullIfBlank(): Px? {
-  if (isNotBlank()) require("px" in this) { "px is not in $this" }
-  return replace("px", "").toIntOrNullIfBlank()?.px
-}
 
-fun String.toPercentOrNullIfBlank(): Percent? {
-  if (isNotBlank()) require("%" in this) { "% is not in $this" }
-  return replace("%", "").toIntOrNullIfBlank()?.percent
-}
 
 
-val Int.px get() = Px(this)
-val Int.percent get() = Percent(this)
-
-
-sealed interface Length
-
-
-class Px(private val i: Int): Margin, Length, VerticalAlign { //NOSONAR
-  operator fun unaryMinus() = Px(-i)
-  override fun toString() = "${i}px"
-  operator fun plus(other: Int) = Px(i + other)
-  operator fun minus(other: Int) = Px(i - other)
-  operator fun times(other: Int) = Px(i*other)
-  operator fun div(other: Int) = Px(i/other)
-  operator fun plus(other: Px) = Px(i + other.i)
-  operator fun minus(other: Px) = Px(i - other.i)
-  operator fun times(other: Px) = Px(i*other.i)
-  operator fun div(other: Px) = Px(i/other.i)
-}
-
-@JvmInline
-value class Percent(private val i: Int): Length, VerticalAlign, PercentIdea { //NOSONAR
-  operator fun unaryMinus() = Percent(-i)
-  override fun toString() = "${i}%"
-  operator fun plus(other: Int) = Percent(i + other)
-  operator fun minus(other: Int) = Percent(i - other)
-  operator fun times(other: Int) = Percent(i*other)
-  operator fun div(other: Int) = Percent(i/other)
-  operator fun plus(other: Percent) = Percent(i + other.i)
-  operator fun minus(other: Percent) = Percent(i - other.i)
-  operator fun times(other: Percent) = Percent(i*other.i)
-  operator fun div(other: Percent) = Percent(i/other.i)
-}
-
-
-interface VerticalAlign
-
-enum class VerticalAligns: VerticalAlign {
-  initial,
-  inherit,
-  unset,
-  baseline,
-  sub,
-  `super`,
-  textTop,
-  textBottom,
-  middle,
-  top,
-  bottom;
-
-  override fun toString(): String = name.hyphenize()
-}
-
-
-@Serializable
-enum class AlignItems {
-  stretch,
-  center,
-  flexStart,
-  flexEnd,
-  baseline,
-  initial,
-  inherit;
-
-  override fun toString() = name.hyphenize()
-}
-
-
-@Serializable
-enum class FontStyle {
-  italic;
-
-  override fun toString() = name.hyphenize()
-}
-
-@Serializable
-enum class FlexDirection {
-  row,
-  rowReverse,
-  column,
-  columnReverse,
-  initial,
-  inherit;
-
-  override fun toString() = name.hyphenize()
-}
-
-@Serializable
-enum class BoxSizing {
-  contentBox, borderBox, initial, inherit;
-
-  override fun toString() = name.hyphenize()
-}
-
-@Serializable
-enum class FontWeight {
-  bold;
-
-  override fun toString() = name.hyphenize()
-}
-
-@Serializable
-enum class BorderStyle {
-  solid;
-
-  override fun toString() = name.hyphenize()
-}
-
-@Serializable
-enum class BorderWidth {
-  thin;
-
-  override fun toString() = name.hyphenize()
-}
-
-@Serializable
-enum class Overflow {
-  visible,
-  hidden,
-  scroll,
-  auto;
-
-  override fun toString() = name
-}
-
-@Serializable
-enum class Position {
-  relative,
-  absolute;
-
-  override fun toString() = name
-}
-
-//enum class matt.klib.css.Display(val s: String? = null) {
-//  inline,
-//  block,
-//  contents,
-//  flex,
-//  grid,
-//  inlineBlock("inline-block"),
-//  inlineFlex("inline-flex"),
-//  inlineGrid("inline-grid"),
-//  inlineTable("inline-table"),
-//  listItem("list-item"),
-//  runIn("run-in"),
-//  table,
-//  tableCaption("table-caption"),
-//  tableColumnGroup("table-column-group"),
-//  tableHeaderGroup("table-header-group"),
-//  tableFooterGroup("table-footer-group"),
-//  table-r
-//
-//  override fun toString() = s ?: name
-//}
-
-//val a = 1.apply {
-//
-//}
-
-
-@Serializable
-enum class JustifyContent {
-  initial, inherit, unset,
-
-  center,
-  start,
-  end,
-  flexStart,
-  flexEnd,
-  left,
-  right,
-  baseline,
-  firstBaseline,
-  lastBaseline,
-  spaceBetween,
-  spaceAround,
-  spaceEvenly,
-  stretch,
-  safeCenter,
-  unsafeCenter;
-
-  override fun toString() = name.hyphenize()
-}
-
-@Serializable
-enum class TextAlign() {
-  center;
-
-  override fun toString() = name
-}
-
-sealed interface Margin
-
-object auto: Margin {
-  override fun toString() = this::class.simpleName!!
-}
-
-interface ColorLike
-
-@Serializable
-enum class Color: ColorLike {
-
-  black,
-
-
-  white, blue, red, orange, green, aqua, grey, purple, violet, yellow, transparent;
-
-  override fun toString() = name
-}
-
-
-@Serializable
-enum class Display {
-  initial, inherit, unset,
-
-  block, `inline`, runIn,
-
-  flow, flowRoot, table, flex, grid, subgrid,
-
-  listItem,
-
-  tableRowGroup, tableHeaderGroup, tableFooterGroup, tableRow, tableCell, tableColumnGroup, tableColumn, tableCaption,
-
-  contents, none,
-
-  inlineBlock, inlineListItem, inlineTable, inlineFlex, inlineGrid;
-
-  override fun toString(): String = name.hyphenize()
-}
-
-@Serializable
-enum class WhiteSpace {
-  preWrap;
-
-  override fun toString(): String = name.hyphenize()
-}
-
-@Serializable
-enum class Cursor {
-  initial, inherit, unset,
-
-  auto, default, none, // General
-  contextMenu, help, pointer, progress, wait, // Links & status
-  cell, crosshair, text, verticalText, // Selection
-  alias, copy, move, noDrop, notAllowed, grab, grabbing, // Drag and drop
-  colResize, rowResize, allScroll, // Resize & scrolling
-  eResize, nResize, neResize, nwResize, sResize, seResize, swResize, wResize, // Directed resize
-  ewResize, nsResize, neswResize, nwseResize, // Bidirectional resize
-  zoomIn, zoomOut; // Zoom
-
-  override fun toString() = name.hyphenize()
-}
-
-private val CAPITAL_LETTER = Regex("[A-Z]")
-
-fun String.hyphenize(): String =
-  replace(CAPITAL_LETTER) {
-	"-${it.value.lowercase()}"
-  }
