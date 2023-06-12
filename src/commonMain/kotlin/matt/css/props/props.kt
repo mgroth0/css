@@ -1,7 +1,7 @@
 package matt.css.props
 
 import kotlinx.serialization.Serializable
-import matt.prim.str.cases.hyphenize
+import matt.css.hyphenize
 
 @Serializable
 enum class Cursor {
@@ -18,7 +18,6 @@ enum class Cursor {
 
     override fun toString() = name.hyphenize()
 }
-
 
 
 @Serializable
@@ -46,7 +45,6 @@ enum class WhiteSpace {
 
     override fun toString(): String = name.hyphenize()
 }
-
 
 
 //enum class matt.klib.css.Display(val s: String? = null) {
@@ -108,11 +106,10 @@ enum class TextAlign() {
 }
 
 
-
 interface ColorLike
 
 @Serializable
-enum class Color: ColorLike {
+enum class Color : ColorLike {
 
     black,
 
@@ -123,13 +120,9 @@ enum class Color: ColorLike {
 }
 
 
-
-
-
-
 interface VerticalAlign
 
-enum class VerticalAligns: VerticalAlign {
+enum class VerticalAligns : VerticalAlign {
     initial,
     inherit,
     unset,
