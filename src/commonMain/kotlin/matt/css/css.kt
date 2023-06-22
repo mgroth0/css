@@ -175,6 +175,7 @@ abstract class CssStyleDSL : MyStyleDsl() {
 
     var width by length()
     var height by length()
+    var gap by length()
     var zIndex: Int
         get() = this["z-index"].toInt()
         set(value) {
