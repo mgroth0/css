@@ -1,27 +1,28 @@
 package matt.css.units
 
 import matt.css.props.VerticalAlign
+import matt.lang.require.requireContains
 import matt.model.data.percent.PercentIdea
 import matt.prim.str.toIntOrNullIfBlank
 import kotlin.jvm.JvmInline
 
 fun String.toPx(): Px {
-    if (isNotBlank()) require("px" in this) { "px is not in $this" }
+    if (isNotBlank()) requireContains(this, "px")
     return replace("px", "").toInt().px
 }
 
 fun String.toPercent(): Percent {
-    if (isNotBlank()) require("%" in this) { "% is not in $this" }
+    if (isNotBlank()) requireContains(this, "%")
     return replace("%", "").toInt().percent
 }
 
 fun String.toPxOrNullIfBlank(): Px? {
-    if (isNotBlank()) require("px" in this) { "px is not in $this" }
+    if (isNotBlank()) requireContains(this, "px")
     return replace("px", "").toIntOrNullIfBlank()?.px
 }
 
 fun String.toPercentOrNullIfBlank(): Percent? {
-    if (isNotBlank()) require("%" in this) { "% is not in $this" }
+    if (isNotBlank()) requireContains(this, "%")
     return replace("%", "").toIntOrNullIfBlank()?.percent
 }
 
@@ -64,6 +65,21 @@ value class Percent(private val i: Int) : Length, VerticalAlign, PercentIdea { /
     operator fun minus(other: Percent) = Percent(i - other.i)
     operator fun times(other: Percent) = Percent(i * other.i)
     operator fun div(other: Percent) = Percent(i / other.i)
+}
+
+
+@JvmInline
+value class DoublePercent(private val d: Double) : Length, VerticalAlign, PercentIdea { //NOSONAR
+    operator fun unaryMinus() = DoublePercent(-d)
+    override fun toString() = "${d}%"
+    operator fun plus(other: Int) = DoublePercent(d + other)
+    operator fun minus(other: Int) = DoublePercent(d - other)
+    operator fun times(other: Int) = DoublePercent(d * other)
+    operator fun div(other: Int) = DoublePercent(d / other)
+    operator fun plus(other: DoublePercent) = DoublePercent(d + other.d)
+    operator fun minus(other: DoublePercent) = DoublePercent(d - other.d)
+    operator fun times(other: DoublePercent) = DoublePercent(d * other.d)
+    operator fun div(other: DoublePercent) = DoublePercent(d / other.d)
 }
 
 
