@@ -7,13 +7,12 @@ import kotlinx.html.style
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
-import matt.css.gradient.LinearGradient
+import matt.color.ColorLike
 import matt.css.props.AlignItems
 import matt.css.props.BorderStyle
 import matt.css.props.BorderWidth
 import matt.css.props.BoxSizing
-import matt.css.props.Color
-import matt.css.props.ColorLike
+import matt.css.props.ColorLikeCssConverter
 import matt.css.props.Cursor
 import matt.css.props.Display
 import matt.css.props.FlexDirection
@@ -29,12 +28,13 @@ import matt.css.props.WhiteSpace
 import matt.css.transform.Transform
 import matt.css.units.Length
 import matt.css.units.Margin
+import matt.css.units.MarginCssConverter
 import matt.css.units.Px
-import matt.css.units.auto
 import matt.css.units.toPercent
 import matt.css.units.toPercentOrNullIfBlank
 import matt.css.units.toPx
 import matt.css.units.toPxOrNullIfBlank
+import matt.model.op.convert.StringConverter
 import matt.prim.str.cases.DromedaryCase
 import matt.prim.str.cases.LowerKebabCase
 import matt.prim.str.cases.convert
@@ -155,14 +155,13 @@ abstract class MyStyleDsl {
 
 
     protected class custom<T, R : MyStyleDsl>(
-        val fromString: String.() -> T,
-        val toStringable: (T & Any).() -> Any = { this }
+        val converter: StringConverter<T & Any>,
     ) {
         operator fun getValue(
             thisRef: R,
             property: KProperty<*>
         ): T {
-            return fromString(thisRef[property.name.hyphenize()])
+            return converter.fromString(thisRef[property.name.hyphenize()])
         }
 
         operator fun setValue(
@@ -171,29 +170,21 @@ abstract class MyStyleDsl {
             value: T
         ) {
             if (value == null) thisRef.remove(property.name.hyphenize())
-            else thisRef[property.name.hyphenize()] = toStringable(value)
+            else thisRef[property.name.hyphenize()] = converter.toString(value)
         }
     }
 }
 
 abstract class CssStyleDSL : MyStyleDsl() {
 
-    var color: ColorLike? by custom({
-        if ("linear-gradient" in this) LinearGradient(this) else Color.valueOf(this)
-    })
+    var color: ColorLike? by custom(ColorLikeCssConverter)
     var textAlign by e(TextAlign::class)
     var lineHeight by length()
 
 
-    var background: ColorLike? by custom({
-        if ("linear-gradient" in this) LinearGradient(this) else Color.valueOf(this)
-    })
-    var borderColor: ColorLike? by custom({
-        if ("linear-gradient" in this) LinearGradient(this) else Color.valueOf(this)
-    })
-    var margin: Margin? by custom({
-        if (this == auto::class.simpleName!!) auto else toPxOrNullIfBlank()
-    })
+    var background: ColorLike? by custom(ColorLikeCssConverter)
+    var borderColor: ColorLike? by custom(ColorLikeCssConverter)
+    var margin: Margin? by custom(MarginCssConverter)
     var verticalAlign: VerticalAlign?
         get() = this["vertical-align"].let { v ->
             VerticalAligns.values().firstOrNull { it.name == v.deHyphenize() }
@@ -237,33 +228,15 @@ abstract class CssStyleDSL : MyStyleDsl() {
     var fontStyle by e(FontStyle::class)
     var fontWeight by e(FontWeight::class)
     var fontSize by px()
-    var marginLeft: Margin? by custom({
-        if (this == auto::class.simpleName!!) auto else toPxOrNullIfBlank()
-    })
-    var marginTop: Margin? by custom({
-        if (this == auto::class.simpleName!!) auto else toPxOrNullIfBlank()
-    })
-    var marginBottom: Margin? by custom({
-        if (this == auto::class.simpleName!!) auto else toPxOrNullIfBlank()
-    })
-    var marginRight: Margin? by custom({
-        if (this == auto::class.simpleName!!) auto else toPxOrNullIfBlank()
-    })
-    var paddingLeft: Margin? by custom({
-        if (this == auto::class.simpleName!!) auto else toPxOrNullIfBlank()
-    })
-    var paddingTop: Margin? by custom({
-        if (this == auto::class.simpleName!!) auto else toPxOrNullIfBlank()
-    })
-    var paddingBottom: Margin? by custom({
-        if (this == auto::class.simpleName!!) auto else toPxOrNullIfBlank()
-    })
-    var paddingRight: Margin? by custom({
-        if (this == auto::class.simpleName!!) auto else toPxOrNullIfBlank()
-    })
-    var padding: Margin? by custom({
-        if (this == auto::class.simpleName!!) auto else toPxOrNullIfBlank()
-    })
+    var marginLeft: Margin? by custom(MarginCssConverter)
+    var marginTop: Margin? by custom(MarginCssConverter)
+    var marginBottom: Margin? by custom(MarginCssConverter)
+    var marginRight: Margin? by custom(MarginCssConverter)
+    var paddingLeft: Margin? by custom(MarginCssConverter)
+    var paddingTop: Margin? by custom(MarginCssConverter)
+    var paddingBottom: Margin? by custom(MarginCssConverter)
+    var paddingRight: Margin? by custom(MarginCssConverter)
+    var padding: Margin? by custom(MarginCssConverter)
     var top by length()
     var bottom by length()
     var left by length()
@@ -287,10 +260,8 @@ abstract class CssStyleDSL : MyStyleDsl() {
             op()
         }
     }
+
     fun transform(op: Transform.() -> Unit) = modifyTransform(op)
-
-
-
 
 
 }

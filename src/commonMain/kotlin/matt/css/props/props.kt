@@ -1,7 +1,10 @@
 package matt.css.props
 
 import kotlinx.serialization.Serializable
+import matt.color.ColorLike
+import matt.css.gradient.LinearGradient
 import matt.css.hyphenize
+import matt.model.op.convert.StringConverter
 
 @Serializable
 enum class Cursor {
@@ -99,14 +102,24 @@ enum class JustifyContent {
 }
 
 @Serializable
-enum class TextAlign() {
+enum class TextAlign {
     center;
 
     override fun toString() = name
 }
 
 
-interface ColorLike
+
+object ColorLikeCssConverter: StringConverter<ColorLike> {
+    override fun toString(t: ColorLike): String {
+        return t.css
+    }
+
+    override fun fromString(s: String): ColorLike {
+        return if ("linear-gradient" in s) LinearGradient(s) else Color.valueOf(s)
+    }
+
+}
 
 @Serializable
 enum class Color : ColorLike {
@@ -116,7 +129,9 @@ enum class Color : ColorLike {
 
     white, blue, red, orange, green, aqua, grey, purple, violet, yellow, transparent;
 
-    override fun toString() = name
+    override fun toString() = name;
+
+    override val css = name
 }
 
 

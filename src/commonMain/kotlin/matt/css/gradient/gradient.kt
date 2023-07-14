@@ -1,6 +1,6 @@
 package matt.css.gradient
 
-import matt.css.props.ColorLike
+import matt.color.ColorLike
 import matt.model.code.idea.LinearGradientIdea
 
 class LinearGradient(@Suppress("UNUSED_PARAMETER") s: String) : ColorLike, LinearGradientIdea {
@@ -9,4 +9,6 @@ class LinearGradient(@Suppress("UNUSED_PARAMETER") s: String) : ColorLike, Linea
     }
 
     val args = mutableListOf<String>()
+
+    override val css get() = TODO()
 }
