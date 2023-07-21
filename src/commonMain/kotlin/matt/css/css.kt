@@ -187,7 +187,7 @@ abstract class CssStyleDSL : MyStyleDsl() {
     var margin: Margin? by custom(MarginCssConverter)
     var verticalAlign: VerticalAlign?
         get() = this["vertical-align"].let { v ->
-            VerticalAligns.values().firstOrNull { it.name == v.deHyphenize() }
+            VerticalAligns.entries.firstOrNull { it.name == v.deHyphenize() }
                 ?: if ("px" in v) v.toPxOrNullIfBlank() else v.toPercentOrNullIfBlank()
         }
         set(value) {
