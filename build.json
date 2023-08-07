@@ -1,27 +1,35 @@
 {
-  "type": "MultiPlatformModule",
-  "jvm": {},
-  "js": {"type":"lib"},
-  "dependencies": [
-    {
-      "type": "Lib",
-      "cfg": "commonMainImplementation",
-      "key": "kotlinx-html-common"
+    "type": "MultiPlatformModule",
+    "dependencies": [
+        {
+            "type": "Lib",
+            "cfg": "commonMainImplementation",
+            "key": "kotlinx-html-common"
+        },
+        {
+            "type": "Project",
+            "cfg": "commonMainApi",
+            "path": ":k:model"
+        },
+        {
+            "type": "Project",
+            "cfg": "commonMainApi",
+            "path": ":k:color"
+        },
+        {
+            "type": "Lib",
+            "cfg": "commonMainApi",
+            "key": "kotlin-css"
+        },
+        {
+            "type": "Project",
+            "cfg": "jvmTestImplementation",
+            "path": ":k:test"
+        }
+    ],
+    "jvm": {
     },
-    {
-      "type": "Project",
-      "cfg": "commonMainApi",
-      "path": ":k:model"
-    },
-    {
-      "type": "Project",
-      "cfg": "commonMainApi",
-      "path": ":k:color"
-    },
-    {
-      "type": "Lib",
-      "cfg": "commonMainApi",
-      "key": "kotlin-css"
+    "js": {
+        "type": "lib"
     }
-  ]
 }
