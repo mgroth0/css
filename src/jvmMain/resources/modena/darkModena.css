@@ -2962,12 +2962,12 @@ is being used to size a border should also be in pixels.
  ******************************************************************************/
 
 .chart-vertical-grid-lines {
-    -fx-stroke: derive(-fx-background, -10%);
+    -fx-stroke: white ;
     -fx-stroke-dash-array: 0.25em, 0.25em;
 }
 
 .chart-horizontal-grid-lines {
-    -fx-stroke: derive(-fx-background, -10%);
+    -fx-stroke: white;
     -fx-stroke-dash-array: 0.25em, 0.25em;
 }
 

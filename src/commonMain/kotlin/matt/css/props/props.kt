@@ -49,6 +49,13 @@ enum class WhiteSpace {
     override fun toString(): String = name.hyphenize()
 }
 
+@Serializable
+enum class Float {
+    right;
+
+    override fun toString(): String = name.hyphenize()
+}
+
 
 //enum class matt.klib.css.Display(val s: String? = null) {
 //  inline,
@@ -103,7 +110,7 @@ enum class JustifyContent {
 
 @Serializable
 enum class TextAlign {
-    center;
+    center, left;
 
     override fun toString() = name
 }
@@ -203,7 +210,13 @@ enum class FontWeight {
 
 @Serializable
 enum class BorderStyle {
-    solid;
+    solid, none;
+
+    override fun toString() = name.hyphenize()
+}
+@Serializable
+enum class Outline {
+    solid, none;
 
     override fun toString() = name.hyphenize()
 }

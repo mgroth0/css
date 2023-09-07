@@ -16,9 +16,11 @@ import matt.css.props.ColorLikeCssConverter
 import matt.css.props.Cursor
 import matt.css.props.Display
 import matt.css.props.FlexDirection
+import matt.css.props.Float
 import matt.css.props.FontStyle
 import matt.css.props.FontWeight
 import matt.css.props.JustifyContent
+import matt.css.props.Outline
 import matt.css.props.Overflow
 import matt.css.props.Position
 import matt.css.props.TextAlign
@@ -35,6 +37,7 @@ import matt.css.units.toPercentOrNullIfBlank
 import matt.css.units.toPx
 import matt.css.units.toPxOrNullIfBlank
 import matt.model.op.convert.StringConverter
+import matt.model.op.convert.StringStringConverter
 import matt.prim.str.cases.DromedaryCase
 import matt.prim.str.cases.LowerKebabCase
 import matt.prim.str.cases.convert
@@ -173,6 +176,25 @@ abstract class MyStyleDsl {
             else thisRef[property.name.hyphenize()] = converter.toString(value)
         }
     }
+
+    protected val raw = custom<String, MyStyleDsl>(StringStringConverter)
+//    protected object raw {
+//        operator fun getValue(
+//            thisRef: MyStyleDsl,
+//            property: KProperty<*>
+//        ): String {
+//            return thisRef[property.name.hyphenize()]
+//        }
+//
+//        operator fun setValue(
+//            thisRef: R,
+//            property: KProperty<*>,
+//            value: T
+//        ) {
+//            if (value == null) thisRef.remove(property.name.hyphenize())
+//            else thisRef[property.name.hyphenize()] = converter.toString(value)
+//        }
+//    }
 }
 
 abstract class CssStyleDSL : MyStyleDsl() {
@@ -182,8 +204,11 @@ abstract class CssStyleDSL : MyStyleDsl() {
     var lineHeight by length()
 
 
+
     var background: ColorLike? by custom(ColorLikeCssConverter)
+    var backgroundColor: ColorLike? by custom(ColorLikeCssConverter)
     var borderColor: ColorLike? by custom(ColorLikeCssConverter)
+
     var margin: Margin? by custom(MarginCssConverter)
     var verticalAlign: VerticalAlign?
         get() = this["vertical-align"].let { v ->
@@ -197,6 +222,7 @@ abstract class CssStyleDSL : MyStyleDsl() {
 
     var width by length()
     var height by length()
+    var maxHeight by length()
     var gap by length()
     var zIndex: Int
         get() = this["z-index"].toInt()
@@ -209,7 +235,7 @@ abstract class CssStyleDSL : MyStyleDsl() {
             this["opacity"] = value
         }
 
-
+    var float by e(Float::class)
     var whiteSpace by e(WhiteSpace::class)
     var display by e(Display::class)
     var flexDirection by e(FlexDirection::class)
@@ -223,6 +249,8 @@ abstract class CssStyleDSL : MyStyleDsl() {
 
     var visibility by e(Visibility::class)
 
+    var border by e(BorderStyle::class)
+    var outline by e(Outline::class)
     var borderStyle by e(BorderStyle::class)
     var borderWidth by e(BorderWidth::class)
     var fontStyle by e(FontStyle::class)
@@ -263,6 +291,7 @@ abstract class CssStyleDSL : MyStyleDsl() {
 
     fun transform(op: Transform.() -> Unit) = modifyTransform(op)
 
+    var transition by raw
 
 }
 

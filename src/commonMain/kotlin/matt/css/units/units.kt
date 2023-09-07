@@ -55,9 +55,13 @@ val Int.percent get() = Percent(this)
 sealed interface Length
 
 
-class Px(private val i: Int) : Margin, Length, VerticalAlign { //NOSONAR
+class Px(private val i: Int) : Margin, Length, VerticalAlign, Comparable<Px> { //NOSONAR
     operator fun unaryMinus() = Px(-i)
     override val css = "${i}px"
+    override fun compareTo(other: Px): Int {
+        return i.compareTo(other.i)
+    }
+
     override fun toString() = css
     operator fun plus(other: Int) = Px(i + other)
     operator fun minus(other: Int) = Px(i - other)
