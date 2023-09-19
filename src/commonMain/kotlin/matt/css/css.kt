@@ -36,8 +36,8 @@ import matt.css.units.toPercent
 import matt.css.units.toPercentOrNullIfBlank
 import matt.css.units.toPx
 import matt.css.units.toPxOrNullIfBlank
-import matt.model.op.convert.StringConverter
 import matt.model.op.convert.StringStringConverter
+import matt.prim.converters.StringConverter
 import matt.prim.str.cases.DromedaryCase
 import matt.prim.str.cases.LowerKebabCase
 import matt.prim.str.cases.convert

@@ -6,10 +6,10 @@ import kotlinx.css.CssBuilder
 import kotlinx.css.backgroundColor
 import kotlinx.css.body
 import kotlinx.css.color
-import matt.lang.function.DSL
+import matt.lang.function.Dsl
 
 
-val DARK: DSL<CssBuilder> = {
+val DARK: Dsl<CssBuilder> = {
     body {
         backgroundColor = black
         color = white

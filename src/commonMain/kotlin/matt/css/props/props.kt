@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 import matt.color.ColorLike
 import matt.css.gradient.LinearGradient
 import matt.css.hyphenize
-import matt.model.op.convert.StringConverter
+import matt.prim.converters.StringConverter
 
 @Serializable
 enum class Cursor {
@@ -136,7 +136,7 @@ enum class Color : ColorLike {
 
     white, blue, red, orange, green, aqua, grey, purple, violet, yellow, transparent;
 
-    override fun toString() = name;
+    override fun toString() = name
 
     override val css = name
 }

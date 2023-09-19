@@ -3,7 +3,7 @@ package matt.css.units
 import matt.css.props.VerticalAlign
 import matt.lang.require.requireContains
 import matt.model.data.percent.PercentIdea
-import matt.model.op.convert.StringConverter
+import matt.prim.converters.StringConverter
 import matt.prim.str.toIntOrNullIfBlank
 import kotlin.jvm.JvmInline
 
