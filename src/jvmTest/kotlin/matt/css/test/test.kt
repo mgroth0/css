@@ -4,7 +4,7 @@ package matt.css.test
 import matt.css.units.percent
 import matt.css.units.toPercent
 import matt.lang.require.requireEquals
-import matt.test.JupiterTestAssertions.assertRunsInOneSecond
+import matt.test.assertions.JupiterTestAssertions.assertRunsInOneSecond
 import kotlin.test.Test
 
 class CssTests() {
