@@ -5,6 +5,7 @@ import kotlinx.css.Visibility
 import kotlinx.html.CommonAttributeGroupFacade
 import kotlinx.html.style
 import kotlinx.serialization.InternalSerializationApi
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
 import matt.color.ColorLike
@@ -27,24 +28,42 @@ import matt.css.props.TextAlign
 import matt.css.props.VerticalAlign
 import matt.css.props.VerticalAligns
 import matt.css.props.WhiteSpace
+import matt.css.ser.MarginCssConverter
 import matt.css.transform.Transform
-import matt.css.units.Length
+import matt.css.units.CssLength
 import matt.css.units.Margin
-import matt.css.units.MarginCssConverter
 import matt.css.units.Px
-import matt.css.units.toPercent
-import matt.css.units.toPercentOrNullIfBlank
-import matt.css.units.toPx
-import matt.css.units.toPxOrNullIfBlank
+import matt.lang.idea.PointIdea2
+import matt.lang.mime.MimeData
 import matt.model.op.convert.StringStringConverter
 import matt.prim.converters.StringConverter
 import matt.prim.str.cases.DromedaryCase
 import matt.prim.str.cases.LowerKebabCase
 import matt.prim.str.cases.convert
 import kotlin.js.JsName
+import kotlin.jvm.JvmInline
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 
+private const val CSS_MIME_TYPE = "text/css"
+
+@Serializable
+@JvmInline
+value class RuledCss(val code: String) : MimeData {
+    override val mimeType: String
+        get() = CSS_MIME_TYPE
+    override val data: String
+        get() = code
+}
+
+@Serializable
+@JvmInline
+value class InlineCss(val code: String) : MimeData {
+    override val mimeType: String
+        get() = CSS_MIME_TYPE
+    override val data: String
+        get() = code
+}
 
 val CommonAttributeGroupFacade.sty get() = HTMLDslStyleDSL(this)
 fun CommonAttributeGroupFacade.sty(op: CssStyleDSL.() -> Unit) = HTMLDslStyleDSL(this).op()
@@ -100,7 +119,8 @@ abstract class MyStyleDsl {
             property: KProperty<*>
         ): Px? {
             val s = thisRef[property.name.hyphenize()]
-            return s.toPxOrNullIfBlank()
+            if (s.isBlank()) return null
+            return MarginCssConverter.fromString(s) as Px
         }
 
         operator fun setValue(
@@ -118,17 +138,19 @@ abstract class MyStyleDsl {
         operator fun getValue(
             thisRef: R,
             property: KProperty<*>
-        ): Length? {
+        ): CssLength? {
             val s = thisRef[property.name.hyphenize()]
             if (s.isBlank()) return null
-            else if ("px" in s) return s.toPx()
-            return s.toPercent()
+
+            if (s.isBlank()) return null
+            return MarginCssConverter.fromString(s) as CssLength
+
         }
 
         operator fun setValue(
             thisRef: R,
             property: KProperty<*>,
-            value: Length?
+            value: CssLength?
         ) {
             if (value == null) thisRef.remove(property.name.hyphenize())
             else thisRef[property.name.hyphenize()] = value
@@ -204,7 +226,6 @@ abstract class CssStyleDSL : MyStyleDsl() {
     var lineHeight by length()
 
 
-
     var background: ColorLike? by custom(ColorLikeCssConverter)
     var backgroundColor: ColorLike? by custom(ColorLikeCssConverter)
     var borderColor: ColorLike? by custom(ColorLikeCssConverter)
@@ -213,7 +234,13 @@ abstract class CssStyleDSL : MyStyleDsl() {
     var verticalAlign: VerticalAlign?
         get() = this["vertical-align"].let { v ->
             VerticalAligns.entries.firstOrNull { it.name == v.deHyphenize() }
-                ?: if ("px" in v) v.toPxOrNullIfBlank() else v.toPercentOrNullIfBlank()
+                ?: run {
+                    if (v.isBlank()) null
+                    else {
+                        MarginCssConverter.fromString(v) as VerticalAlign
+                    }
+//                    if ("px" in v) v.toPxOrNullIfBlank() else v.toPercentOrNullIfBlank()
+                }
         }
         set(value) {
             if (value == null) remove("vertical-align")
@@ -270,11 +297,26 @@ abstract class CssStyleDSL : MyStyleDsl() {
     var left by length()
     var right by length()
 
+    var allSides: CssLength?
+        get() = TODO()
+        set(value) {
+            top = value
+            bottom = value
+            left = value
+            right = value
+        }
+
 
     var transform: Transform
         get() = Transform.parse(this["transform"])
         set(value) {
             this["transform"] = value
+        }
+
+    var transformOrigin: PointIdea2<CssLength, CssLength>
+        get() = TODO()
+        set(value) {
+            this["transform-origin"] = "${value.x.css} ${value.y.css}"
         }
 
 
@@ -283,8 +325,7 @@ abstract class CssStyleDSL : MyStyleDsl() {
     }
 
     fun resetTransform(op: Transform.() -> Unit) {
-        transform = transform.apply {
-            funs.clear()
+        transform = Transform().apply {
             op()
         }
     }

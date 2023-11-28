@@ -1,14 +1,16 @@
 package matt.css.transform
 
 import matt.css.StyleDSLMarker
-import matt.css.units.Length
-import matt.css.units.toPercent
+import matt.css.ser.MarginCssConverter
+import matt.css.units.CssLength
+import matt.lang.assertions.require.requireNotEmpty
+import matt.lang.assertions.require.requireNull
 import matt.lang.inList
-import matt.lang.require.requireNotEmpty
-import matt.lang.require.requireNull
+import matt.model.data.sensemod.DegreesDouble
 import matt.model.data.xyz.GenericXYZ
 import matt.model.data.xyz.asTuple
 import matt.model.data.xyz.genericXyz
+import matt.model.data.xyz.map
 import matt.model.data.xyz.toList
 import matt.prim.str.lower
 import kotlin.reflect.KClass
@@ -20,7 +22,14 @@ class Transform {
     companion object {
 
         private val transformFuns = mapOf<KClass<out TransformFun<*>>, (List<String>) -> TransformFun<*>>(
-            Translate::class to { Translate(it.map { it.toString().toPercent() }.let { genericXyz(it[0], it[1]) }) },
+            Translate::class to {
+                Translate(it.map {
+                    MarginCssConverter.fromString(it) as CssLength
+                }.let {
+                    check(it.size == 2)
+                    genericXyz(it[0], it[1])
+                })
+            },
             Scale::class to { Scale(it[0].toString().toDouble()) }
         )
 
@@ -56,7 +65,7 @@ class Transform {
         fun parseArgs(args: List<String>): A
     }
 
-    class Translate(override val args: GenericXYZ<Length?>) : TransformFun<GenericXYZ<Length?>> {
+    class Translate(override val args: GenericXYZ<CssLength?>) : TransformFun<GenericXYZ<CssLength?>> {
 
         init {
             requireNotEmpty(args.toList().filterNotNull())
@@ -64,8 +73,11 @@ class Transform {
             if (args.y == null) requireNull(args.z)
         }
 
-        override fun parseArgs(args: List<String>): GenericXYZ<Length?> {
-            return args.map { it.toPercent() }.let {
+        override fun parseArgs(args: List<String>): GenericXYZ<CssLength?> {
+            return args.map {
+                MarginCssConverter.fromString(it) as CssLength
+            }.let {
+                check(it.size == 3)
                 GenericXYZ(
                     it.getOrNull(0),
                     it.getOrNull(1),
@@ -76,29 +88,43 @@ class Transform {
 
         override fun toString(): String {
 
-            return this::class.simpleName!! + args.asTuple(trimNullEnd = true, trailingComma = false)
+            return this::class.simpleName!!.lower() + args.map { it?.css }
+                .asTuple(trimNullEnd = true, trailingComma = false)
         }
     }
 
     class Scale(override val args: Double) : TransformFun<Double> {
         override fun parseArgs(args: List<String>): Double {
-            return args[0].toString().toDouble()
+            return args[0].toDouble()
         }
 
         override fun toString(): String {
-            return this::class.simpleName!! + "(" + args.inList().joinToString(",") + ") "
+            return this::class.simpleName!!.lower() + "(" + args.inList().joinToString(",") + ") "
         }
     }
 
-    //  private val transforms
+    class Rotate(override val args: DegreesDouble) : TransformFun<DegreesDouble> {
+        override fun parseArgs(args: List<String>): DegreesDouble {
+            TODO()
+        }
+
+        override fun toString(): String {
+            return this::class.simpleName!!.lower() + "(" + args.asDouble + "deg" + ") "
+        }
+    }
+
+    fun rotate(degrees: DegreesDouble) {
+        funs.add(Rotate(degrees))
+    }
+
 
     fun translate(
-        x: Length,
-        y: Length? = null,
-        z: Length? = null
+        x: CssLength,
+        y: CssLength? = null,
+        z: CssLength? = null
     ) = translate(genericXyz(x, y, z))
 
-    fun translate(args: GenericXYZ<Length?>) {
+    fun translate(args: GenericXYZ<CssLength?>) {
         funs.add(Translate(args))
     }
 
