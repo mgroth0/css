@@ -7,6 +7,7 @@ import kotlinx.html.style
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.internal.FormatLanguage
 import kotlinx.serialization.serializer
 import matt.color.ColorLike
 import matt.css.props.AlignItems
@@ -34,7 +35,7 @@ import matt.css.units.CssLength
 import matt.css.units.Margin
 import matt.css.units.Px
 import matt.lang.idea.PointIdea2
-import matt.lang.mime.MimeData
+import matt.lang.mime.TextMimeData
 import matt.model.op.convert.StringStringConverter
 import matt.prim.converters.StringConverter
 import matt.prim.str.cases.DromedaryCase
@@ -49,19 +50,20 @@ private const val CSS_MIME_TYPE = "text/css"
 
 @Serializable
 @JvmInline
-value class RuledCss(val code: String) : MimeData {
+value class RuledCss(@FormatLanguage("CSS", "", "") val code: String) : TextMimeData {
     override val mimeType: String
         get() = CSS_MIME_TYPE
-    override val data: String
+    override val textData: String
         get() = code
 }
 
 @Serializable
 @JvmInline
-value class InlineCss(val code: String) : MimeData {
+value class InlineCss(@FormatLanguage("CSS", "", "") val code: String) : TextMimeData {
+
     override val mimeType: String
         get() = CSS_MIME_TYPE
-    override val data: String
+    override val textData: String
         get() = code
 }
 
@@ -86,11 +88,11 @@ class HTMLDslStyleDSL(val tag: CommonAttributeGroupFacade) : CssStyleDSL() {
         }
     }
 
-    override fun get(key: String): String = TODO("Not yet implemented")
+    override fun get(key: String): String = TODO()
 
-    override fun remove(key: String) = TODO("Not yet implemented")
+    override fun remove(key: String) = TODO()
 
-    override fun clear() = TODO("Not yet implemented")
+    override fun clear() = TODO()
 }
 
 

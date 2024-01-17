@@ -1,12 +1,10 @@
 package matt.css.props
 
-import kotlinx.serialization.Serializable
 import matt.color.ColorLike
 import matt.css.gradient.LinearGradient
 import matt.css.hyphenize
 import matt.prim.converters.StringConverter
 
-@Serializable
 enum class Cursor {
     initial, inherit, unset,
 
@@ -23,7 +21,6 @@ enum class Cursor {
 }
 
 
-@Serializable
 enum class Display {
     initial, inherit, unset,
 
@@ -42,14 +39,12 @@ enum class Display {
     override fun toString(): String = name.hyphenize()
 }
 
-@Serializable
 enum class WhiteSpace {
     preWrap;
 
     override fun toString(): String = name.hyphenize()
 }
 
-@Serializable
 enum class Float {
     right;
 
@@ -84,7 +79,6 @@ enum class Float {
 //}
 
 
-@Serializable
 enum class JustifyContent {
     initial, inherit, unset,
 
@@ -108,7 +102,6 @@ enum class JustifyContent {
     override fun toString() = name.hyphenize()
 }
 
-@Serializable
 enum class TextAlign {
     center, left;
 
@@ -128,7 +121,6 @@ object ColorLikeCssConverter: StringConverter<ColorLike> {
 
 }
 
-@Serializable
 enum class Color : ColorLike {
 
     black,
@@ -161,7 +153,6 @@ enum class VerticalAligns : VerticalAlign {
 }
 
 
-@Serializable
 enum class AlignItems {
     stretch,
     center,
@@ -175,14 +166,12 @@ enum class AlignItems {
 }
 
 
-@Serializable
 enum class FontStyle {
     italic;
 
     override fun toString() = name.hyphenize()
 }
 
-@Serializable
 enum class FlexDirection {
     row,
     rowReverse,
@@ -194,41 +183,35 @@ enum class FlexDirection {
     override fun toString() = name.hyphenize()
 }
 
-@Serializable
 enum class BoxSizing {
     contentBox, borderBox, initial, inherit;
 
     override fun toString() = name.hyphenize()
 }
 
-@Serializable
 enum class FontWeight {
     bold;
 
     override fun toString() = name.hyphenize()
 }
 
-@Serializable
 enum class BorderStyle {
     solid, none;
 
     override fun toString() = name.hyphenize()
 }
-@Serializable
 enum class Outline {
     solid, none;
 
     override fun toString() = name.hyphenize()
 }
 
-@Serializable
 enum class BorderWidth {
     thin;
 
     override fun toString() = name.hyphenize()
 }
 
-@Serializable
 enum class Overflow {
     visible,
     hidden,
@@ -238,7 +221,6 @@ enum class Overflow {
     override fun toString() = name
 }
 
-@Serializable
 enum class Position {
     relative,
     absolute;

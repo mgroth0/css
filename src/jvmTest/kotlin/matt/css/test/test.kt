@@ -4,10 +4,10 @@ package matt.css.test
 import matt.css.ser.MarginCssConverter
 import matt.css.units.percent
 import matt.lang.assertions.require.requireEquals
-import matt.test.assertions.JupiterTestAssertions.assertRunsInOneSecond
+import matt.test.Tests
 import kotlin.test.Test
 
-class CssTests() {
+class CssTests: Tests() {
     @Test
     fun parsePercent() = assertRunsInOneSecond {
         requireEquals(
