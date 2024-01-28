@@ -35,36 +35,43 @@ import matt.css.units.CssLength
 import matt.css.units.Margin
 import matt.css.units.Px
 import matt.lang.idea.PointIdea2
+import matt.lang.mime.BinaryRepresentableData
+import matt.lang.mime.CachingTextData
 import matt.lang.mime.TextMimeData
+import matt.lang.model.file.types.MimeType
+import matt.lang.model.value.MyValueClass
+import matt.lang.model.value.MyValueClassSerializer
 import matt.model.op.convert.StringStringConverter
 import matt.prim.converters.StringConverter
 import matt.prim.str.cases.DromedaryCase
 import matt.prim.str.cases.LowerKebabCase
 import matt.prim.str.cases.convert
 import kotlin.js.JsName
-import kotlin.jvm.JvmInline
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 
-private const val CSS_MIME_TYPE = "text/css"
+private val CSS_MIME_TYPE = MimeType("text", "css")
 
-@Serializable
-@JvmInline
-value class RuledCss(@FormatLanguage("CSS", "", "") val code: String) : TextMimeData {
-    override val mimeType: String
-        get() = CSS_MIME_TYPE
-    override val textData: String
-        get() = code
+@Serializable(with = RuledCss.Serializer::class)
+class RuledCss(@FormatLanguage("CSS", "", "") val code: String) : MyValueClass<String>(code),
+    TextMimeData, BinaryRepresentableData by CachingTextData(code) {
+    companion object Serializer : MyValueClassSerializer<String, RuledCss>(serializer<String>()) {
+        override fun construct(value: String) = RuledCss(value)
+    }
+
+    override val mimeType get() = CSS_MIME_TYPE
+    override val asText get() = code
 }
 
-@Serializable
-@JvmInline
-value class InlineCss(@FormatLanguage("CSS", "", "") val code: String) : TextMimeData {
+@Serializable(with = InlineCss.Serializer::class)
+class InlineCss(@FormatLanguage("CSS", "", "") val code: String) : MyValueClass<String>(code),
+    TextMimeData, BinaryRepresentableData by CachingTextData(code) {
+        companion object Serializer : MyValueClassSerializer<String, InlineCss>(serializer<String>()) {
+        override fun construct(value: String) = InlineCss(value)
+    }
 
-    override val mimeType: String
-        get() = CSS_MIME_TYPE
-    override val textData: String
-        get() = code
+    override val mimeType get() = CSS_MIME_TYPE
+    override val asText: String get() = code
 }
 
 val CommonAttributeGroupFacade.sty get() = HTMLDslStyleDSL(this)
@@ -235,14 +242,13 @@ abstract class CssStyleDSL : MyStyleDsl() {
     var margin: Margin? by custom(MarginCssConverter)
     var verticalAlign: VerticalAlign?
         get() = this["vertical-align"].let { v ->
-            VerticalAligns.entries.firstOrNull { it.name == v.deHyphenize() }
-                ?: run {
-                    if (v.isBlank()) null
-                    else {
-                        MarginCssConverter.fromString(v) as VerticalAlign
-                    }
-//                    if ("px" in v) v.toPxOrNullIfBlank() else v.toPercentOrNullIfBlank()
+            VerticalAligns.entries.firstOrNull { it.name == v.deHyphenize() } ?: run {
+                if (v.isBlank()) null
+                else {
+                    MarginCssConverter.fromString(v) as VerticalAlign
                 }
+//                    if ("px" in v) v.toPxOrNullIfBlank() else v.toPercentOrNullIfBlank()
+            }
         }
         set(value) {
             if (value == null) remove("vertical-align")
