@@ -73,34 +73,25 @@ class Transform {
             if (args.y == null) requireNull(args.z)
         }
 
-        override fun parseArgs(args: List<String>): GenericXYZ<CssLength?> {
-            return args.map {
-                MarginCssConverter.fromString(it) as CssLength
-            }.let {
-                check(it.size == 3)
-                GenericXYZ(
-                    it.getOrNull(0),
-                    it.getOrNull(1),
-                    it.getOrNull(2)
-                )
-            }
+        override fun parseArgs(args: List<String>): GenericXYZ<CssLength?> = args.map {
+            MarginCssConverter.fromString(it) as CssLength
+        }.let {
+            check(it.size == 3)
+            GenericXYZ(
+                it.getOrNull(0),
+                it.getOrNull(1),
+                it.getOrNull(2)
+            )
         }
 
-        override fun toString(): String {
-
-            return this::class.simpleName!!.lower() + args.map { it?.css }
-                .asTuple(trimNullEnd = true, trailingComma = false)
-        }
+        override fun toString(): String = this::class.simpleName!!.lower() + args.map { it?.css }
+            .asTuple(trimNullEnd = true, trailingComma = false)
     }
 
     class Scale(override val args: Double) : TransformFun<Double> {
-        override fun parseArgs(args: List<String>): Double {
-            return args[0].toDouble()
-        }
+        override fun parseArgs(args: List<String>): Double = args[0].toDouble()
 
-        override fun toString(): String {
-            return this::class.simpleName!!.lower() + "(" + args.inList().joinToString(",") + ") "
-        }
+        override fun toString(): String = this::class.simpleName!!.lower() + "(" + args.inList().joinToString(",") + ") "
     }
 
     class Rotate(override val args: DegreesDouble) : TransformFun<DegreesDouble> {
@@ -108,9 +99,7 @@ class Transform {
             TODO()
         }
 
-        override fun toString(): String {
-            return this::class.simpleName!!.lower() + "(" + args.asDouble + "deg" + ") "
-        }
+        override fun toString(): String = this::class.simpleName!!.lower() + "(" + args.asDouble + "deg" + ") "
     }
 
     fun rotate(degrees: DegreesDouble) {

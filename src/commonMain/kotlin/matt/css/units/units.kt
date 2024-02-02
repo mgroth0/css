@@ -81,9 +81,7 @@ class Px(private val d: Double) : SvgAndCssLengthBase<Px>(), Margin, VerticalAli
     override val unit = LengthUnit.Px
 
     override fun toString() = css
-    override fun fromDouble(d: Double): Px {
-        return Px(d)
-    }
+    override fun fromDouble(d: Double): Px = Px(d)
 
     override val asDouble: Double
         get() = d
@@ -120,9 +118,7 @@ class UserLength(user: Double) : JustSvgLengthBase<UserLength>(), TypedSvgLength
 
 
     override val unit = LengthUnit.User
-    override fun fromDouble(d: Double): UserLength {
-        return UserLength(d)
-    }
+    override fun fromDouble(d: Double): UserLength = UserLength(d)
 
     override val asDouble = user
 }
@@ -141,9 +137,7 @@ class PercentViewportWidth(vw: Double) : SvgAndCssLengthBase<PercentViewportWidt
     TypedSvgLength<PercentViewportWidth>, SvgFontSizeUnit, Margin {
 
     override val unit = LengthUnit.PercentViewportWidth
-    override fun fromDouble(d: Double): PercentViewportWidth {
-        return PercentViewportWidth(d)
-    }
+    override fun fromDouble(d: Double): PercentViewportWidth = PercentViewportWidth(d)
 
     override val asDouble = vw
 }
@@ -155,9 +149,7 @@ class PercentViewportHeight(vh: Double) : SvgAndCssLengthBase<PercentViewportHei
     TypedSvgLength<PercentViewportHeight>, SvgFontSizeUnit, Margin {
 
     override val unit = LengthUnit.PercentViewportHeight
-    override fun fromDouble(d: Double): PercentViewportHeight {
-        return PercentViewportHeight(d)
-    }
+    override fun fromDouble(d: Double): PercentViewportHeight = PercentViewportHeight(d)
 
     override val asDouble = vh
 
@@ -169,9 +161,7 @@ class PercentViewportSmallerDimension(vmin: Double) : SvgAndCssLengthBase<Percen
     TypedSvgLength<PercentViewportSmallerDimension>, SvgFontSizeUnit, Margin {
 
     override val unit = LengthUnit.PercentViewportSmallerDimension
-    override fun fromDouble(d: Double): PercentViewportSmallerDimension {
-        return PercentViewportSmallerDimension(d)
-    }
+    override fun fromDouble(d: Double): PercentViewportSmallerDimension = PercentViewportSmallerDimension(d)
 
     override val asDouble = vmin
 }
@@ -183,9 +173,7 @@ class PercentViewportLargerDimension(vmax: Double) : SvgAndCssLengthBase<Percent
     CssLength, Margin {
 
     override val unit = LengthUnit.PercentViewportLargerDimension
-    override fun fromDouble(d: Double): PercentViewportLargerDimension {
-        return PercentViewportLargerDimension(d)
-    }
+    override fun fromDouble(d: Double): PercentViewportLargerDimension = PercentViewportLargerDimension(d)
 
     override val asDouble = vmax
 }
@@ -200,9 +188,7 @@ data class Percent(internal val i: Int) : CssIntLengthBase<Percent>(), VerticalA
     override val asInt: Int
         get() = i
 
-    override fun fromInt(d: Int): Percent {
-        return Percent(d)
-    }
+    override fun fromInt(d: Int): Percent = Percent(d)
 
 
     override val svgCode: String
@@ -238,9 +224,7 @@ data class DoublePercent(internal val d: Double) : SvgAndCssLengthBase<DoublePer
     override val unit = LengthUnit.Percent
 
     override fun toString() = css
-    override fun fromDouble(d: Double): DoublePercent {
-        return DoublePercent(d)
-    }
+    override fun fromDouble(d: Double): DoublePercent = DoublePercent(d)
 
     override val asDouble: Double
         get() = d
@@ -249,13 +233,13 @@ data class DoublePercent(internal val d: Double) : SvgAndCssLengthBase<DoublePer
     /*
     Temporary workaround for https://youtrack.jetbrains.com/issue/KT-54513/K1-and-K2-java.lang.NoSuchMethodError-with-value-class-implementing-an-interface
     Once that bug is fixed, this can be deleted in favor of the default method from the interface
-    * */
+     * */
     /*override operator fun minus(m: DoublePercent) = super.minus(m)*/
 
     /*
     Temporary workaround for https://youtrack.jetbrains.com/issue/KT-54513/K1-and-K2-java.lang.NoSuchMethodError-with-value-class-implementing-an-interface
     Once that bug is fixed, this can be deleted in favor of the default method from the interface
-    * */
+     * */
     /*override operator fun plus(m: DoublePercent) = super.plus(m)*/
 
     operator fun plus(other: Int) = DoublePercent(d + other)

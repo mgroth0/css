@@ -111,13 +111,9 @@ enum class TextAlign {
 
 
 object ColorLikeCssConverter: StringConverter<ColorLike> {
-    override fun toString(t: ColorLike): String {
-        return t.css
-    }
+    override fun toString(t: ColorLike): String = t.css
 
-    override fun fromString(s: String): ColorLike {
-        return if ("linear-gradient" in s) LinearGradient(s) else Color.valueOf(s)
-    }
+    override fun fromString(s: String): ColorLike = if ("linear-gradient" in s) LinearGradient(s) else Color.valueOf(s)
 
 }
 

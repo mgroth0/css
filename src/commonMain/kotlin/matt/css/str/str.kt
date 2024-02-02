@@ -18,9 +18,7 @@ class InlineCssStringBuilderDsl internal constructor() : CssStyleDSL() {
         map[key] = value.toString()
     }
 
-    override fun get(key: String): String {
-        return map[key]!!
-    }
+    override fun get(key: String): String = map[key]!!
 
     override fun remove(key: String) {
         map.remove(key)

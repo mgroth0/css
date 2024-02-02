@@ -31,15 +31,11 @@ object MarginSerializer : KSerializer<Margin> {
 
 
 object MarginCssConverter : StringConverter<Margin> {
-    override fun toString(t: Margin): String {
-        return t.css
-    }
+    override fun toString(t: Margin): String = t.css
 
-    override fun fromString(s: String): Margin {
-        return when (s) {
-            auto.css -> auto
-            else     -> SvgLengthSerializer.decode(s) as Margin
-        }
+    override fun fromString(s: String): Margin = when (s) {
+        auto.css -> auto
+        else     -> SvgLengthSerializer.decode(s) as Margin
     }
 }
 

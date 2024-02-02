@@ -66,7 +66,7 @@ class RuledCss(@FormatLanguage("CSS", "", "") val code: String) : MyValueClass<S
 @Serializable(with = InlineCss.Serializer::class)
 class InlineCss(@FormatLanguage("CSS", "", "") val code: String) : MyValueClass<String>(code),
     TextMimeData, BinaryRepresentableData by CachingTextData(code) {
-        companion object Serializer : MyValueClassSerializer<String, InlineCss>(serializer<String>()) {
+    companion object Serializer : MyValueClassSerializer<String, InlineCss>(serializer<String>()) {
         override fun construct(value: String) = InlineCss(value)
     }
 
@@ -91,7 +91,7 @@ class HTMLDslStyleDSL(val tag: CommonAttributeGroupFacade) : CssStyleDSL() {
         if (STYLE_KEY !in tag.attributes) {
             tag.style = "$key: $value;"
         } else {
-            tag.style += " ${key}: $value;"
+            tag.style += " $key: $value;"
         }
     }
 
@@ -194,9 +194,7 @@ abstract class MyStyleDsl {
         operator fun getValue(
             thisRef: R,
             property: KProperty<*>
-        ): T {
-            return converter.fromString(thisRef[property.name.hyphenize()])
-        }
+        ): T = converter.fromString(thisRef[property.name.hyphenize()])
 
         operator fun setValue(
             thisRef: R,
