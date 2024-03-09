@@ -8,25 +8,6 @@ import matt.model.data.mathable.IntWrapper
 import matt.model.data.mathable.NumberWrapper
 import matt.model.data.percent.PercentIdea
 
-//fun String.toPx(): Px {
-//    if (isNotBlank()) requireContains(this, "px")
-//    return replace("px", "").toInt().px
-//}
-//
-//fun String.toPercent(): Percent {
-//    if (isNotBlank()) requireContains(this, "%")
-//    return replace("%", "").toInt().percent
-//}
-//
-//fun String.toPxOrNullIfBlank(): Px? {
-//    if (isNotBlank()) requireContains(this, "px")
-//    return replace("px", "").toIntOrNullIfBlank()?.px
-//}
-//
-//fun String.toPercentOrNullIfBlank(): Percent? {
-//    if (isNotBlank()) requireContains(this, "%")
-//    return replace("%", "").toIntOrNullIfBlank()?.percent
-//}
 
 interface CssValue {
     val css: String
@@ -34,12 +15,13 @@ interface CssValue {
 
 sealed interface Margin : CssValue
 
+@Suppress("ktlint:standard:class-naming")
 object auto : Margin {
     override val css = this::class.simpleName!!
     override fun toString() = css
 }
 
-val Number.px get() = Px(this.toDouble())
+val Number.px get() = Px(toDouble())
 val Int.percent get() = Percent(this)
 val Double.percent get() = DoublePercent(this)
 
@@ -75,8 +57,12 @@ sealed class SvgAndCssLengthBase<M : DoubleWrapper<M>> : CssLengthBase<M>(), Svg
 }
 
 
-class Px(private val d: Double) : SvgAndCssLengthBase<Px>(), Margin, VerticalAlign, TypedSvgLength<Px>,
-    SvgFontSizeUnit { //NOSONAR
+class Px(private val d: Double) :
+    SvgAndCssLengthBase<Px>(),
+    Margin,
+    VerticalAlign,
+    TypedSvgLength<Px>,
+    SvgFontSizeUnit {
 
     override val unit = LengthUnit.Px
 
@@ -91,8 +77,6 @@ class Px(private val d: Double) : SvgAndCssLengthBase<Px>(), Margin, VerticalAli
     operator fun times(other: Int) = Px(d * other)
     operator fun div(other: Int) = Px(d / other)
     operator fun times(other: Px) = Px(d * other.d)
-
-
 }
 
 interface SvgUnit {
@@ -111,7 +95,7 @@ typealias SvgLength = TypedSvgLength<*>
 interface TypedSvgLength<L : TypedSvgLength<L>> : SvgUnit, DoubleWrapper<L>
 
 
-val Number.user get() = UserLength(this.toDouble())
+val Number.user get() = UserLength(toDouble())
 
 
 class UserLength(user: Double) : JustSvgLengthBase<UserLength>(), TypedSvgLength<UserLength> {
@@ -124,17 +108,19 @@ class UserLength(user: Double) : JustSvgLengthBase<UserLength>(), TypedSvgLength
 }
 
 
-val Number.pt get() = PointUnit(this.toDouble())
+val Number.pt get() = PointUnit(toDouble())
 
 class PointUnit(user: Double) : SvgFontSizeUnit {
     override val svgCode = "$user"
-
 }
 
-val Number.vw get() = PercentViewportWidth(this.toDouble())
+val Number.vw get() = PercentViewportWidth(toDouble())
 
-class PercentViewportWidth(vw: Double) : SvgAndCssLengthBase<PercentViewportWidth>(),
-    TypedSvgLength<PercentViewportWidth>, SvgFontSizeUnit, Margin {
+class PercentViewportWidth(vw: Double) :
+    SvgAndCssLengthBase<PercentViewportWidth>(),
+    TypedSvgLength<PercentViewportWidth>,
+    SvgFontSizeUnit,
+    Margin {
 
     override val unit = LengthUnit.PercentViewportWidth
     override fun fromDouble(d: Double): PercentViewportWidth = PercentViewportWidth(d)
@@ -143,22 +129,27 @@ class PercentViewportWidth(vw: Double) : SvgAndCssLengthBase<PercentViewportWidt
 }
 
 
-val Number.vh get() = PercentViewportHeight(this.toDouble())
+val Number.vh get() = PercentViewportHeight(toDouble())
 
-class PercentViewportHeight(vh: Double) : SvgAndCssLengthBase<PercentViewportHeight>(),
-    TypedSvgLength<PercentViewportHeight>, SvgFontSizeUnit, Margin {
+class PercentViewportHeight(vh: Double) :
+    SvgAndCssLengthBase<PercentViewportHeight>(),
+    TypedSvgLength<PercentViewportHeight>,
+    SvgFontSizeUnit,
+    Margin {
 
     override val unit = LengthUnit.PercentViewportHeight
     override fun fromDouble(d: Double): PercentViewportHeight = PercentViewportHeight(d)
 
     override val asDouble = vh
-
 }
 
-val Number.vmin get() = PercentViewportSmallerDimension(this.toDouble())
+val Number.vmin get() = PercentViewportSmallerDimension(toDouble())
 
-class PercentViewportSmallerDimension(vmin: Double) : SvgAndCssLengthBase<PercentViewportSmallerDimension>(),
-    TypedSvgLength<PercentViewportSmallerDimension>, SvgFontSizeUnit, Margin {
+class PercentViewportSmallerDimension(vmin: Double) :
+    SvgAndCssLengthBase<PercentViewportSmallerDimension>(),
+    TypedSvgLength<PercentViewportSmallerDimension>,
+    SvgFontSizeUnit,
+    Margin {
 
     override val unit = LengthUnit.PercentViewportSmallerDimension
     override fun fromDouble(d: Double): PercentViewportSmallerDimension = PercentViewportSmallerDimension(d)
@@ -166,11 +157,14 @@ class PercentViewportSmallerDimension(vmin: Double) : SvgAndCssLengthBase<Percen
     override val asDouble = vmin
 }
 
-val Number.vmax get() = PercentViewportLargerDimension(this.toDouble())
+val Number.vmax get() = PercentViewportLargerDimension(toDouble())
 
-class PercentViewportLargerDimension(vmax: Double) : SvgAndCssLengthBase<PercentViewportLargerDimension>(),
-    TypedSvgLength<PercentViewportLargerDimension>, SvgFontSizeUnit,
-    CssLength, Margin {
+class PercentViewportLargerDimension(vmax: Double) :
+    SvgAndCssLengthBase<PercentViewportLargerDimension>(),
+    TypedSvgLength<PercentViewportLargerDimension>,
+    SvgFontSizeUnit,
+    CssLength,
+    Margin {
 
     override val unit = LengthUnit.PercentViewportLargerDimension
     override fun fromDouble(d: Double): PercentViewportLargerDimension = PercentViewportLargerDimension(d)
@@ -179,8 +173,11 @@ class PercentViewportLargerDimension(vmax: Double) : SvgAndCssLengthBase<Percent
 }
 
 
-data class Percent(internal val i: Int) : CssIntLengthBase<Percent>(), VerticalAlign, PercentIdea,
-    SvgFontSizeUnit { //NOSONAR
+data class Percent(internal val i: Int) :
+    CssIntLengthBase<Percent>(),
+    VerticalAlign,
+    PercentIdea,
+    SvgFontSizeUnit {
 
     override val unit = LengthUnit.Percent
 
@@ -195,7 +192,6 @@ data class Percent(internal val i: Int) : CssIntLengthBase<Percent>(), VerticalA
         get() = css
 
 
-    //    operator fun unaryMinus() = Percent(-i)
     override fun toString() = css
     operator fun plus(other: Int) = Percent(i + other)
     operator fun minus(other: Int) = Percent(i - other)
@@ -204,21 +200,23 @@ data class Percent(internal val i: Int) : CssIntLengthBase<Percent>(), VerticalA
     operator fun div(other: Double) = DoublePercent(i.toDouble() / other)
     operator fun times(other: Double) = DoublePercent(i.toDouble() * other)
 
-    //    operator fun plus(other: Percent) = Percent(i + other.i)
     operator fun plus(other: DoublePercent) = DoublePercent(i.toDouble() + other.d)
     operator fun minus(other: DoublePercent) = DoublePercent(i.toDouble() - other.d)
 
-    //    operator fun minus(other: Percent) = Percent(i - other.i)
     operator fun times(other: Percent) = Percent(i * other.i)
-//    operator fun div(other: Percent) = Percent(i / other.i)
 
     fun toDoublePercent() = DoublePercent(i.toDouble())
 }
 
 
-data class DoublePercent(internal val d: Double) : SvgAndCssLengthBase<DoublePercent>(), CssLength, VerticalAlign,
+data class DoublePercent(internal val d: Double) :
+    SvgAndCssLengthBase<DoublePercent>(),
+    CssLength,
+    VerticalAlign,
     PercentIdea,
-    TypedSvgLength<DoublePercent>, SvgFontSizeUnit, Margin { //NOSONAR
+    TypedSvgLength<DoublePercent>,
+    SvgFontSizeUnit,
+    Margin {
 
 
     override val unit = LengthUnit.Percent
@@ -230,18 +228,6 @@ data class DoublePercent(internal val d: Double) : SvgAndCssLengthBase<DoublePer
         get() = d
 
 
-    /*
-    Temporary workaround for https://youtrack.jetbrains.com/issue/KT-54513/K1-and-K2-java.lang.NoSuchMethodError-with-value-class-implementing-an-interface
-    Once that bug is fixed, this can be deleted in favor of the default method from the interface
-     * */
-    /*override operator fun minus(m: DoublePercent) = super.minus(m)*/
-
-    /*
-    Temporary workaround for https://youtrack.jetbrains.com/issue/KT-54513/K1-and-K2-java.lang.NoSuchMethodError-with-value-class-implementing-an-interface
-    Once that bug is fixed, this can be deleted in favor of the default method from the interface
-     * */
-    /*override operator fun plus(m: DoublePercent) = super.plus(m)*/
-
     operator fun plus(other: Int) = DoublePercent(d + other)
     operator fun minus(other: Int) = DoublePercent(d - other)
     operator fun times(other: Int) = DoublePercent(d * other)
@@ -251,11 +237,6 @@ data class DoublePercent(internal val d: Double) : SvgAndCssLengthBase<DoublePer
     operator fun minus(other: Percent) = DoublePercent(d - other.i)
     operator fun times(other: DoublePercent) = DoublePercent(d * other.d)
 }
-
-
-//fun idk() {
-//    DoublePercent(5.0) - 1.0
-//}
 
 
 enum class LengthUnit(val abbreviation: String) {
@@ -272,15 +253,14 @@ enum class LengthUnit(val abbreviation: String) {
         fun unitFor(abbreviation: String) = entries.first { it.abbreviation == abbreviation }
     }
 
-    fun of(value: Double) = when (this) {
-        User                            -> value.user
-        Px                              -> value.px
-        Percent                         -> value.percent
-        PercentViewportWidth            -> value.vw
-        PercentViewportHeight           -> value.vh
-        PercentViewportSmallerDimension -> value.vmin
-        PercentViewportLargerDimension  -> value.vmax
-    }
-
-
+    fun of(value: Double) =
+        when (this) {
+            User                            -> value.user
+            Px                              -> value.px
+            Percent                         -> value.percent
+            PercentViewportWidth            -> value.vw
+            PercentViewportHeight           -> value.vh
+            PercentViewportSmallerDimension -> value.vmin
+            PercentViewportLargerDimension  -> value.vmax
+        }
 }

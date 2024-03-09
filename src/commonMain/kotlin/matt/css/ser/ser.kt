@@ -1,54 +1,30 @@
 package matt.css.ser
 
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.descriptors.serialDescriptor
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
 import matt.css.units.LengthUnit
 import matt.css.units.Margin
 import matt.css.units.SvgLength
 import matt.css.units.auto
-import matt.prim.converters.StringConverter
+import matt.model.ser.EncodedAsStringSerializer
+import kotlin.jvm.JvmName
 
 
-object MarginSerializer : KSerializer<Margin> {
-
-    override val descriptor = serialDescriptor<String>()
-
-    override fun deserialize(decoder: Decoder): Margin {
-        val d = decoder.decodeString()
-        return MarginCssConverter.fromString(d)
-    }
-
-    override fun serialize(
-        encoder: Encoder,
-        value: Margin
-    ) {
-        encoder.encodeString(MarginCssConverter.toString(value))
-    }
-
+object MarginSerializer : EncodedAsStringSerializer<Margin>() {
+    override fun String.decode(): Margin =
+        when (this) {
+            auto.css -> auto
+            else     -> SvgLengthSerializer.decode(this) as Margin
+        }
+    override fun Margin.encodeToString(): String = css
 }
 
 
-object MarginCssConverter : StringConverter<Margin> {
-    override fun toString(t: Margin): String = t.css
-
-    override fun fromString(s: String): Margin = when (s) {
-        auto.css -> auto
-        else     -> SvgLengthSerializer.decode(s) as Margin
-    }
-}
+object SvgLengthSerializer : EncodedAsStringSerializer<SvgLength>() {
 
 
-object SvgLengthSerializer : KSerializer<SvgLength> {
-    override val descriptor = serialDescriptor<String>()
+    override fun String.decode(): SvgLength = decode(this)
 
 
-    override fun deserialize(decoder: Decoder): SvgLength {
-        val string = decoder.decodeString()
-        return decode(string)
-    }
-
+    @JvmName("decode2")
     fun decode(s: String): SvgLength {
         val trimmed = s.trim()
         val itr = trimmed.iterator()
@@ -78,11 +54,5 @@ object SvgLengthSerializer : KSerializer<SvgLength> {
         return LengthUnit.unitFor(unit.toString()).of(number)
     }
 
-    override fun serialize(
-        encoder: Encoder,
-        value: SvgLength
-    ) {
-        encoder.encodeString(value.svgCode)
-    }
-
+    override fun SvgLength.encodeToString(): String = svgCode
 }

@@ -1,6 +1,6 @@
 package matt.css.props
 
-import matt.color.ColorLike
+import matt.color.common.ColorLike
 import matt.css.gradient.LinearGradient
 import matt.css.hyphenize
 import matt.prim.converters.StringConverter
@@ -8,14 +8,14 @@ import matt.prim.converters.StringConverter
 enum class Cursor {
     initial, inherit, unset,
 
-    auto, default, none, // General
-    contextMenu, help, pointer, progress, wait, // Links & status
-    cell, crosshair, text, verticalText, // Selection
-    alias, copy, move, noDrop, notAllowed, grab, grabbing, // Drag and drop
-    colResize, rowResize, allScroll, // Resize & scrolling
-    eResize, nResize, neResize, nwResize, sResize, seResize, swResize, wResize, // Directed resize
-    ewResize, nsResize, neswResize, nwseResize, // Bidirectional resize
-    zoomIn, zoomOut; // Zoom
+    auto, default, none, /* General */
+    contextMenu, help, pointer, progress, wait, /* Links & status */
+    cell, crosshair, text, verticalText, /* Selection */
+    alias, copy, move, noDrop, notAllowed, grab, grabbing, /* Drag and drop */
+    colResize, rowResize, allScroll, /* Resize & scrolling */
+    eResize, nResize, neResize, nwResize, sResize, seResize, swResize, wResize, /* Directed resize */
+    ewResize, nsResize, neswResize, nwseResize, /* Bidirectional resize */
+    zoomIn, zoomOut; /* Zoom */
 
     override fun toString() = name.hyphenize()
 }
@@ -52,31 +52,7 @@ enum class Float {
 }
 
 
-//enum class matt.klib.css.Display(val s: String? = null) {
-//  inline,
-//  block,
-//  contents,
-//  flex,
-//  grid,
-//  inlineBlock("inline-block"),
-//  inlineFlex("inline-flex"),
-//  inlineGrid("inline-grid"),
-//  inlineTable("inline-table"),
-//  listItem("list-item"),
-//  runIn("run-in"),
-//  table,
-//  tableCaption("table-caption"),
-//  tableColumnGroup("table-column-group"),
-//  tableHeaderGroup("table-header-group"),
-//  tableFooterGroup("table-footer-group"),
-//  table-r
-//
-//  override fun toString() = s ?: name
-//}
 
-//val a = 1.apply {
-//
-//}
 
 
 enum class JustifyContent {
@@ -114,7 +90,6 @@ object ColorLikeCssConverter: StringConverter<ColorLike> {
     override fun toString(t: ColorLike): String = t.css
 
     override fun fromString(s: String): ColorLike = if ("linear-gradient" in s) LinearGradient(s) else Color.valueOf(s)
-
 }
 
 enum class Color : ColorLike {

@@ -29,5 +29,4 @@ class InlineCssStringBuilderDsl internal constructor() : CssStyleDSL() {
     }
 
     internal fun build() = map.entries.joinToString(separator = "; ") { "${it.key}: ${it.value}" }
-
 }
