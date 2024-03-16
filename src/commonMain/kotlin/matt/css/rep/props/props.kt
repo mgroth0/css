@@ -1,8 +1,8 @@
-package matt.css.props
+package matt.css.rep.props
 
 import matt.color.common.ColorLike
-import matt.css.gradient.LinearGradient
 import matt.css.hyphenize
+import matt.css.rep.gradient.LinearGradient
 import matt.prim.converters.StringConverter
 
 enum class Cursor {

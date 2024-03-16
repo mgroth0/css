@@ -1,4 +1,4 @@
-package matt.css.dark
+package matt.css.write.dark
 
 import kotlinx.css.Color.Companion.black
 import kotlinx.css.Color.Companion.white

@@ -1,4 +1,4 @@
-package matt.css.gradient
+package matt.css.rep.gradient
 
 import matt.color.common.ColorLike
 import matt.model.code.idea.LinearGradientIdea

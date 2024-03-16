@@ -12,6 +12,11 @@
             "path": ":k:model"
         },
         {
+            "type": "Project",
+            "cfg": "commonMainApi",
+            "path": ":k:color"
+        },
+        {
             "type": "Lib",
             "cfg": "commonMainApi",
             "key": "kotlin-css"

@@ -1,8 +1,8 @@
 package matt.css.test
 
 
+import matt.css.rep.units.percent
 import matt.css.ser.MarginSerializer
-import matt.css.units.percent
 import matt.lang.assertions.require.requireEquals
 import matt.test.Tests
 import kotlin.test.Test

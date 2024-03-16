@@ -1,7 +1,8 @@
-package matt.css.units
+package matt.css.rep.units
 
 import kotlinx.serialization.json.internal.FormatLanguage
-import matt.css.props.VerticalAlign
+import matt.css.rep.props.VerticalAlign
+import matt.css.rep.units.LengthUnit.User
 import matt.lang.idea.PointIdea3
 import matt.model.data.mathable.DoubleWrapper
 import matt.model.data.mathable.IntWrapper
@@ -101,7 +102,7 @@ val Number.user get() = UserLength(toDouble())
 class UserLength(user: Double) : JustSvgLengthBase<UserLength>(), TypedSvgLength<UserLength> {
 
 
-    override val unit = LengthUnit.User
+    override val unit = User
     override fun fromDouble(d: Double): UserLength = UserLength(d)
 
     override val asDouble = user

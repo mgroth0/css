@@ -1,7 +1,7 @@
-package matt.css.str
+package matt.css.write.str
 
-import matt.css.CssStyleDSL
-import matt.css.InlineCss
+import matt.css.rep.InlineCss
+import matt.css.write.CssStyleDSL
 import matt.lang.function.Dsl
 
 fun inlineCss(op: Dsl<CssStyleDSL>) = InlineCss(InlineCssStringBuilderDsl().apply(op).build())
