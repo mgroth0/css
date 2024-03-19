@@ -1,5 +1,8 @@
+@file:OptIn(InternalSerializationApi::class)
+
 package matt.css.rep
 
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.internal.FormatLanguage
 import kotlinx.serialization.serializer

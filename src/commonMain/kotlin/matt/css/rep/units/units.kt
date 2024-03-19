@@ -1,5 +1,8 @@
+@file:OptIn(InternalSerializationApi::class)
+
 package matt.css.rep.units
 
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.json.internal.FormatLanguage
 import matt.css.rep.props.VerticalAlign
 import matt.css.rep.units.LengthUnit.User
